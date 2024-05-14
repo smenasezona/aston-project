@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,6 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import AppModal from '../appModal/AppModal';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,6 +65,10 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
+  const [open, setOpen] = useState({isOpen:false, content:'Вход'})
+
+  
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -74,6 +80,12 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleClick = (page:string)=>{
+    handleCloseNavMenu();
+    setOpen((prevState)=>{return{...prevState,isOpen:!open.isOpen,content:page}})
+  }
+
 
   return (
     <AppBar position="static"
@@ -130,7 +142,7 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={()=>handleClick(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -158,7 +170,7 @@ function Header() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>handleClick(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
@@ -204,6 +216,7 @@ function Header() {
           </Box>
         </Toolbar>
       </Container>
+      <AppModal open={open} setOpen={setOpen}></AppModal>
     </AppBar>
   );
 }
