@@ -6,7 +6,7 @@ import {
 	Search,
 	SearchIconWrapper,
 	StyledInputBase,
-} from '../../styles/headerStyles'
+} from '../../styles/searchStyles'
 
 const SearchBar: React.FC = () => (
 	<Tooltip title='Open settings'>
