@@ -1,22 +1,23 @@
 import {
-	AuthActionTypes,
 	CheckAuth,
 	LoginAction,
 	LogoutAction,
+	RegisterAction,
 } from '../../types/authTypes'
 import { CHECK_AUTH, LOGIN, LOGOUT, REGISTER } from './actionsTypes'
 
-export const register = (
+export const registerUser = (
 	username: string,
+	email: string,
 	password: string
-): AuthActionTypes => ({
+): RegisterAction => ({
 	type: REGISTER,
-	payload: { username, password },
+	payload: { username, email, password },
 })
 
-export const login = (username: string): LoginAction => ({
+export const loginUser = (username: string, password: string): LoginAction => ({
 	type: LOGIN,
-	payload: username,
+	payload: { username, password },
 })
 
 export const logout = (): LogoutAction => ({

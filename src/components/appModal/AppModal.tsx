@@ -1,4 +1,7 @@
 import { Box, Modal, Typography } from '@mui/material'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { checkAuth } from '../../store/actions/actions'
 import { appModalStyles } from '../../styles/appModalStyles'
 import LoginForm from '../Forms/LoginForm/LoginForm'
 import RegForm from '../Forms/RegForm/RegForm'
@@ -14,6 +17,12 @@ type AppModalProps = {
 }
 
 function AppModal(props: AppModalProps) {
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(checkAuth())
+	}, [dispatch])
+
 	return (
 		<Modal
 			open={props.open.isOpen}
