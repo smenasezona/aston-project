@@ -1,4 +1,5 @@
 import { Box, Modal, Typography } from '@mui/material';
+import Form from '../form/Form';
 
 type Open = {
     isOpen:boolean,
@@ -32,10 +33,7 @@ function AppModal (props: SelfProps) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal {props.open.content === 'Вход' ? <span>Вход</span> : <span>Регистрация</span>}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            {props.open.content === 'Вход' ? <span>Вход</span> : <Form></Form>}
           </Typography>
         </Box>
       </Modal>
