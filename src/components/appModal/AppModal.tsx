@@ -1,14 +1,15 @@
 import { Box, Modal, Typography } from '@mui/material';
-import Form from '../form/Form';
+import RegForm from '../Forms/RegForm/RegForm';
+import LoginForm from '../Forms/LoginForm/Form';
 
 type Open = {
-    isOpen:boolean,
-        content: string,
+	isOpen: boolean
+	content: string
 }
 
-type SelfProps =  {
-    open:Open,
-    setOpen: (state: Open)=>void
+type AppModalProps = {
+	open: Open
+	setOpen: (state: Open) => void
 }
 
 const style = {
@@ -23,7 +24,7 @@ const style = {
     p: 4,
   };
 
-function AppModal (props: SelfProps) {
+function AppModal (props: AppModalProps) {
     return (
         <Modal
         open={props.open.isOpen}
@@ -33,7 +34,7 @@ function AppModal (props: SelfProps) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {props.open.content === 'Вход' ? <span>Вход</span> : <Form></Form>}
+            {props.open.content === 'Вход' ? <LoginForm/> : <RegForm/>}
           </Typography>
         </Box>
       </Modal>

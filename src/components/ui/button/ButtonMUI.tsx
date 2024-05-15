@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { Button as BaseButton, buttonClasses } from '@mui/base/Button';
-import { prepareForSlot } from '@mui/base/utils';
 import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
-
+import styles from './ButtonMUI.module.scss';
 
 function ButtonMUI(props:any) {
+  console.log(styles);
   return (
-    <Stack spacing={2} direction="row">
-      <Button {...props}>{props.children}</Button>
-    </Stack>
+    <div className={styles.button}>
+      <Stack spacing={2} direction="row">
+        <Button {...props}>{props.children}</Button>
+      </Stack>
+    </div>
   );
 }
 
