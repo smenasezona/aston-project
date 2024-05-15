@@ -5,7 +5,7 @@ import {
 	REGISTER,
 } from '../store/actions/actionsTypes'
 
-export type RegisterAction = {
+type RegisterAction = {
 	type: typeof REGISTER
 	payload: { username: string; password: string }
 }
@@ -22,3 +22,14 @@ export type LogoutAction = {
 export type CheckAuth = {
 	type: typeof CHECK_AUTH
 }
+
+export type AuthState = {
+	isAuth: boolean
+	user: string | null
+}
+
+export type AuthActionTypes =
+	| RegisterAction
+	| LoginAction
+	| LogoutAction
+	| CheckAuth

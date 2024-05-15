@@ -1,25 +1,30 @@
-// src/store/reducer.ts
-import * as types from './actions/actionsTypes';
+import { AuthActionTypes, AuthState } from '../types/authTypes'
+import { CHECK_AUTH, LOGIN, LOGOUT, REGISTER } from './actions/actionsTypes'
 
-interface AppState {
-    films: {} | null;
-    error: string | null;
+const initialState: AuthState = {
+	isAuth: false,
+	user: null,
 }
 
-const initialState: AppState = {
-    films: null,
-    error: null
-};
-
-const reducer = (state = initialState, action: any): AppState => {
-    switch (action.type) {
-        case types.FAVORITE_MOVIES:
-            return { ...state, films: action.payload, error: null };
-        case types.FETCH_FAILURE:
-            return { ...state, films: null, error: action.payload };
-        default:
-            return state;
-    }
-};
-
-export default reducer;
+export const authReducer = (
+	state = initialState,
+	action: AuthActionTypes
+): AuthState => {
+	switch (action.type) {
+		case REGISTER:
+			localStorage.setItem('user', JSON.stringify(action.payload))
+			return state
+		case LOGIN:
+			return { ...state, isAuth: true, user: action.payload }
+		case LOGOUT:
+			return { ...state, isAuth: false, user: null }
+		case CHECK_AUTH:
+			const userData = localStorage.getItem('user')
+			if (userData) {
+				return { ...state, isAuth: true, user: JSON.parse(userData).username }
+			}
+			return state
+		default:
+			return state
+	}
+}
