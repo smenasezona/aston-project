@@ -9,7 +9,7 @@ import {
 	Typography,
 } from '@mui/material'
 import useHeaderState from '../../utils/hooks/useHeaderState'
-import AppModal from '../appModal/AppModal'
+import AppModal from '../AppModal/AppModal'
 import NavMenu from '../NavMenu/NavMenu'
 import SearchBar from '../SearchBar/SearchBar'
 

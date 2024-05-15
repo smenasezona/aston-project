@@ -1,13 +1,29 @@
-import * as types from './actionsTypes';
+import {
+	CheckAuth,
+	LoginAction,
+	LogoutAction,
+	RegisterAction,
+} from '../../types/authTypes'
 
-export const getUser = () => async (dispatch: any) => {
-    try {
-        const response = await fetch('https://api.example.com/user');
-        dispatch({type: types.FAVORITE_MOVIES, payload: response});
-    } catch (error) {
-        dispatch({type: types.FETCH_FAILURE, payload: error});
-    }
-};
+import { CHECK_AUTH, LOGIN, LOGOUT, REGISTER } from './actionsTypes'
 
-export const FAVORITE_MOVIES = 'FAVORITE_MOVIES';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const register = (
+	username: string,
+	password: string
+): RegisterAction => ({
+	type: REGISTER,
+	payload: { username, password },
+})
+
+export const login = (username: string): LoginAction => ({
+	type: LOGIN,
+	payload: username,
+})
+
+export const logout = (): LogoutAction => ({
+	type: LOGOUT,
+})
+
+export const checkAuth = (): CheckAuth => ({
+	type: CHECK_AUTH,
+})

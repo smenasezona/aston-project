@@ -1,4 +1,4 @@
-export const FAVORITE_MOVIES = 'FAVORITE_MOVIES';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
-
-export type ActionTypes = typeof FAVORITE_MOVIES
+export const REGISTER = 'REGISTER'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const CHECK_AUTH = 'CHECK_AUTH'
