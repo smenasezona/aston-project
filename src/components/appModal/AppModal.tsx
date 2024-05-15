@@ -1,6 +1,6 @@
 import { Box, Modal, Typography } from '@mui/material';
 import RegForm from '../Forms/RegForm/RegForm';
-import LoginForm from '../Forms/LoginForm/Form';
+import LoginForm from '../Forms/LoginForm/LoginForm';
 
 type Open = {
 	isOpen: boolean
