@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
-import { loginUser } from '../../../store/actions/actions'
+import { loginUser } from '../../../store/actions/authActions'
 import ButtonMUI from '../../ui/Button/ButtonMUI'
 import InputMUI from '../../ui/Input/InputMUI'
 

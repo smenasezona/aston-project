@@ -1,5 +1,5 @@
-import { AuthActionTypes, AuthState } from '../types/authTypes'
-import { CHECK_AUTH, LOGIN, LOGOUT, REGISTER } from './actions/actionsTypes'
+import { AuthActionTypes, AuthState } from '../../types/authTypes'
+import { CHECK_AUTH, LOGIN, LOGOUT, REGISTER } from '../actions/actionsTypes'
 
 const initialState: AuthState = {
 	isAuth: false,

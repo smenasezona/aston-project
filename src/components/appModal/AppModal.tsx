@@ -1,7 +1,7 @@
 import { Box, Modal, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { checkAuth } from '../../store/actions/actions'
+import { checkAuth } from '../../store/actions/authActions'
 import { appModalStyles } from '../../styles/appModalStyles'
 import LoginForm from '../Forms/LoginForm/LoginForm'
 import RegForm from '../Forms/RegForm/RegForm'
