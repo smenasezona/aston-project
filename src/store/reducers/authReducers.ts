@@ -1,4 +1,5 @@
 import { AuthActionTypes, AuthState } from '../../types/authTypes'
+import { snackbarActionsType } from '../../types/snackbarTypes'
 import { CHECK_AUTH, LOGIN, LOGOUT, REGISTER } from '../actions/actionsTypes'
 
 const initialState: AuthState = {
@@ -8,7 +9,7 @@ const initialState: AuthState = {
 
 export const authReducer = (
 	state = initialState,
-	action: AuthActionTypes
+	action: AuthActionTypes | snackbarActionsType
 ): AuthState => {
 	switch (action.type) {
 		case REGISTER:
@@ -18,17 +19,7 @@ export const authReducer = (
 			console.log('я зареган???')
 			return state
 		case LOGIN:
-			const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
-			const user = storedUsers.find(
-				(usr: { username: string; password: string }) =>
-					usr.username === action.payload.username &&
-					usr.password === action.payload.password
-			)
-			if (user) {
-				console.log('Я вошел??')
-				return { ...state, isAuth: true, user }
-			}
-			return state
+			return { ...state, isAuth: true }
 		case LOGOUT:
 			return { ...state, isAuth: false, user: null }
 		case CHECK_AUTH:
@@ -37,6 +28,7 @@ export const authReducer = (
 				return { ...state, isAuth: true, user: JSON.parse(userData).username }
 			}
 			return state
+
 		default:
 			return state
 	}
