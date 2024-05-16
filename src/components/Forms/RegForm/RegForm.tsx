@@ -3,6 +3,7 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import * as yup from 'yup'
 import { registerUser } from '../../../store/actions/authActions'
+import { AppDispatch } from '../../../store/store'
 import ButtonMUI from '../../ui/Button/ButtonMUI'
 import InputMUI from '../../ui/Input/InputMUI'
 
@@ -30,7 +31,7 @@ function RegForm() {
 		resolver: yupResolver(schema),
 	})
 
-	const dispatch = useDispatch()
+	const dispatch = useDispatch<AppDispatch>()
 
 	const submit: SubmitHandler<FormData> = data => {
 		dispatch(registerUser(data.username, data.email, data.password))

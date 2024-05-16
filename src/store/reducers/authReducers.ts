@@ -13,9 +13,6 @@ export const authReducer = (
 ): AuthState => {
 	switch (action.type) {
 		case REGISTER:
-			const users = JSON.parse(localStorage.getItem('users') || '[]')
-			users.push(action.payload)
-			localStorage.setItem('users', JSON.stringify(users))
 			console.log('я зареган???')
 			return state
 		case LOGIN:
