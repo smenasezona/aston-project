@@ -2,7 +2,11 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-function GridContainer() {
+interface GridContainerProps {
+  children: React.ReactNode;
+}
+
+function GridContainer({ children }: GridContainerProps) {
   const itemsRow1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
   return (
@@ -19,6 +23,7 @@ function GridContainer() {
                     theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
                 }}
               />
+              {children}
             </Grid>
           ))}
         </Grid>
@@ -26,5 +31,6 @@ function GridContainer() {
     </Grid>
   );
 }
+
 
 export default GridContainer
