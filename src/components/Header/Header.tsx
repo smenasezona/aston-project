@@ -8,8 +8,9 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material'
+import { useSelector } from 'react-redux'
 import useHeaderState from '../../utils/hooks/useHeaderState'
-import AppModal from '../appModal/AppModal'
+import AppModal from '../AppModal/AppModal'
 import NavMenu from '../NavMenu/NavMenu'
 import SearchBar from '../SearchBar/SearchBar'
 
@@ -28,6 +29,8 @@ function Header() {
 		setOpen,
 	} = useHeaderState()
 
+	const modalIsOpen = useSelector((state: any) => state.modal.modalIsOpen)
+	
 	return (
 		<AppBar
 			position='static'
@@ -120,7 +123,7 @@ function Header() {
 					</Box>
 				</Toolbar>
 			</Container>
-			<AppModal open={open} setOpen={setOpen}></AppModal>
+			{modalIsOpen && <AppModal open={open} setOpen={setOpen}></AppModal>}
 		</AppBar>
 	)
 }

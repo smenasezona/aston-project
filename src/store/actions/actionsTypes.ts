@@ -1,4 +1,10 @@
-export const FAVORITE_MOVIES = 'FAVORITE_MOVIES';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
+export const REGISTER = 'REGISTER'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const CHECK_AUTH = 'CHECK_AUTH'
 
-export type ActionTypes = typeof FAVORITE_MOVIES
+export const SHOW_SNACKBAR = 'SHOW_SNACKBAR'
+export const HIDE_SNACKBAR = 'HIDE_SNACKBAR'
+
+export const SHOW_MODAL = 'SHOW_MODAL'
+export const HIDE_MODAL = 'HIDE_MODAL'
