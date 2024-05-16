@@ -5,7 +5,7 @@ import CardItem from '../../components/CardItem/CardItem';
 function Home() {
   return (
     <GridContainer>
-      <CardItem />
+      <CardItem onClick={() => console.log('abc')}/>
     </GridContainer>
   );
 }

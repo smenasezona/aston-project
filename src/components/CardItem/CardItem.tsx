@@ -7,14 +7,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp';
 
-function CardItem() {
+interface CardItemProps {
+  onClick: () => void;
+}
+
+function CardItem({onClick}: CardItemProps) {
   return (
-    <Card sx={{ minWidth: 150, position: 'relative', paddingTop: '20px' }}>
+    <Card onClick={onClick}
+          sx={{ minWidth: 150, position: 'relative', paddingTop: '20px' }}>
       <Button style={{ position: 'absolute', top: '5px', right: '0px'}}>
         <HighlightOffSharpIcon />
       </Button>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5"
+                    component="div">
           Название
         </Typography>
       </CardContent>
