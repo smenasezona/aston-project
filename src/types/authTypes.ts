@@ -25,10 +25,11 @@ export type CheckAuth = {
 
 export type AuthState = {
     isAuth: boolean
-    user: {
-        username: string
-        password: string
-    } | null
+    // user: {
+    //     username: string
+    //     password: string
+    // } | null
+    user: string | null
     snackbar?: {
         snackbarOpen: boolean,
         snackbarMessage: string,

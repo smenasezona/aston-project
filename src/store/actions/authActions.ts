@@ -6,6 +6,7 @@ import {
 	LOGIN,
 	LOGOUT,
 	REGISTER,
+	SHOW_MODAL,
 	SHOW_SNACKBAR,
 } from './actionsTypes'
 
@@ -15,6 +16,7 @@ export const registerUser =
 		const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
 		storedUsers.push({ username, email, password })
 		localStorage.setItem('users', JSON.stringify(storedUsers))
+		localStorage.setItem('currentSession',JSON.stringify({username,password}))
 
 		dispatch({ type: REGISTER, payload: { username, email, password } })
 		dispatch({ type: HIDE_MODAL })
@@ -29,6 +31,7 @@ export const loginUser =
 		)
 
 		if (user) {
+			localStorage.setItem('currentSession',JSON.stringify({username,password}))
 			dispatch({ type: LOGIN, payload: { username, password } })
 			dispatch({ type: HIDE_MODAL })
 		} else {
@@ -39,9 +42,12 @@ export const loginUser =
 		}
 	}
 
-export const logout = (): LogoutAction => ({
-	type: LOGOUT,
-})
+export const logout = () => (dispatch: Dispatch) => {
+	localStorage.removeItem('currentSession');
+	dispatch({type: LOGOUT});
+	dispatch({ type: SHOW_MODAL })
+}
+
 
 export const checkAuth = (): CheckAuth => ({
 	type: CHECK_AUTH,
