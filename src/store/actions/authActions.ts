@@ -19,7 +19,7 @@ export const registerUser =
 		localStorage.setItem('currentSession',JSON.stringify({username,password}))
 
 		dispatch({ type: REGISTER, payload: { username, email, password } })
-		dispatch({ type: HIDE_MODAL })
+		// dispatch({ type: HIDE_MODAL })
 	}
 
 export const loginUser =
@@ -33,7 +33,7 @@ export const loginUser =
 		if (user) {
 			localStorage.setItem('currentSession',JSON.stringify({username,password}))
 			dispatch({ type: LOGIN, payload: { username, password } })
-			dispatch({ type: HIDE_MODAL })
+			// dispatch({ type: HIDE_MODAL })
 		} else {
 			dispatch({
 				type: SHOW_SNACKBAR,
@@ -45,7 +45,7 @@ export const loginUser =
 export const logout = () => (dispatch: Dispatch) => {
 	localStorage.removeItem('currentSession');
 	dispatch({type: LOGOUT});
-	dispatch({ type: SHOW_MODAL })
+	// dispatch({ type: SHOW_MODAL })
 }
 
 
