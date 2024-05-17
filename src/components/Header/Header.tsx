@@ -8,11 +8,14 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useHeaderState from '../../utils/hooks/useHeaderState'
 import AppModal from '../AppModal/AppModal'
 import NavMenu from '../NavMenu/NavMenu'
 import SearchBar from '../SearchBar/SearchBar'
+import { AppDispatch } from '../../store/store'
+import { logout } from '../../store/actions/authActions'
+import { Link } from 'react-router-dom'
 
 const pages = ['Вход', 'Регистрация']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -29,7 +32,15 @@ function Header() {
 		setOpen,
 	} = useHeaderState()
 
+	const dispatch = useDispatch<AppDispatch>()
+
 	const modalIsOpen = useSelector((state: any) => state.modal.modalIsOpen)
+	const isAuth = useSelector((state:any) => state.auth.isAuth)
+	const user = useSelector((state:any) => state.auth.user)
+
+	const handleExit = () => {
+		dispatch(logout());
+	}
 	
 	return (
 		<AppBar
@@ -84,6 +95,8 @@ function Header() {
 					>
 						Waifu
 					</Typography>
+					
+					{!isAuth ?
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map(page => (
 							<Button
@@ -95,6 +108,12 @@ function Header() {
 							</Button>
 						))}
 					</Box>
+					:
+					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+							<Link to={'/favorite'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Избранное</Button></Link>
+							<Link to={'/history'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>История</Button></Link>
+					</Box>
+					}
 
 					<Box sx={{ flexGrow: 0 }}>
 						<SearchBar />
@@ -121,6 +140,10 @@ function Header() {
 							))}
 						</Menu>
 					</Box>
+					{isAuth && <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+						<Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={handleExit}>Выйти</Button>
+						<Button sx={{ my: 2, color: 'white', display: 'block' }}>{user}</Button>
+					</Box>}
 				</Toolbar>
 			</Container>
 			{modalIsOpen && <AppModal open={open} setOpen={setOpen}></AppModal>}

@@ -14,15 +14,21 @@ export const authReducer = (
 	switch (action.type) {
 		case REGISTER:
 			console.log('я зареган???')
-			return state
+			return { ...state, isAuth: true, user: action.payload.username }
 		case LOGIN:
-			return { ...state, isAuth: true }
+			return { ...state, isAuth: true, user: action.payload.username }
 		case LOGOUT:
 			return { ...state, isAuth: false, user: null }
 		case CHECK_AUTH:
 			const userData = localStorage.getItem('users')
-			if (userData) {
-				return { ...state, isAuth: true, user: JSON.parse(userData).username }
+			const currSession = localStorage.getItem('currentSession');
+
+			if (userData && currSession) {
+				const sameUsernames = JSON.parse(userData).some((item:any) => item.username === JSON.parse(currSession).username);
+
+				if(sameUsernames) return { ...state, isAuth: true, user: JSON.parse(currSession).username}
+
+				return state;
 			}
 			return state
 

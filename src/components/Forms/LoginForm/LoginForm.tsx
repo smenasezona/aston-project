@@ -50,6 +50,7 @@ function LoginForm() {
 						type='text'
 						id='username'
 						placeholder='Имя пользователя'
+            // style={{ background:'red' }}
 						{...register('username')}
 					/>
 					{errors.username && (
