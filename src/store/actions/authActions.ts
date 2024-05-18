@@ -1,44 +1,57 @@
 import { Dispatch } from 'redux'
-import { CheckAuth, LogoutAction } from '../../types/authTypes'
+import { CheckAuth } from '../../types/authTypes'
+import { findInLocalStorage } from '../../utils/findInLocalStorage'
 import {
 	CHECK_AUTH,
-	HIDE_MODAL,
 	LOGIN,
 	LOGOUT,
 	REGISTER,
-	SHOW_MODAL,
 	SHOW_SNACKBAR,
 } from './actionsTypes'
-import { findInLocalStorage } from '../../utils/findInLocalStorage'
 
 export const registerUser =
 	(username: string, email: string, password: string) =>
 	(dispatch: Dispatch) => {
 		const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
 
-		const sameUsername = findInLocalStorage(storedUsers,'username',username)
-		const sameEmail = findInLocalStorage(storedUsers,'email',email)
+		const sameUsername = findInLocalStorage(storedUsers, 'username', username)
+		const sameEmail = findInLocalStorage(storedUsers, 'email', email)
 
-		if (sameUsername && sameEmail){
-			dispatch({type: SHOW_SNACKBAR,payload: '🤨 Такой username и email уже существуют',})
-			return;
+		if (sameUsername && sameEmail) {
+			dispatch({
+				type: SHOW_SNACKBAR,
+				payload: '🤨 Такой username и email уже существуют',
+			})
+			return
 		}
-		if (sameUsername){
-			dispatch({type: SHOW_SNACKBAR,payload: '🤨 Такой username уже существует',})
-			return;
+		if (sameUsername) {
+			dispatch({
+				type: SHOW_SNACKBAR,
+				payload: '🤨 Такой username уже существует',
+			})
+			return
 		}
-		if (sameEmail){
-			dispatch({type: SHOW_SNACKBAR,payload: '🤨 Такой email уже существует',})
-			return;
+		if (sameEmail) {
+			dispatch({
+				type: SHOW_SNACKBAR,
+				payload: '🤨 Такой email уже существует',
+			})
+			return
 		}
 		storedUsers.push({ username, email, password })
 
 		localStorage.setItem('users', JSON.stringify(storedUsers))
-		localStorage.setItem('currentSession',JSON.stringify({username,password}))
-		
+		localStorage.setItem(
+			'currentSession',
+			JSON.stringify({ username, password })
+		)
 
 		dispatch({ type: REGISTER, payload: { username, email, password } })
 		// dispatch({ type: HIDE_MODAL })
+		dispatch({
+			type: SHOW_SNACKBAR,
+			payload: '😊 Добро пожаловать!',
+		})
 	}
 
 export const loginUser =
@@ -50,7 +63,10 @@ export const loginUser =
 		)
 
 		if (user) {
-			localStorage.setItem('currentSession',JSON.stringify({username,password}))
+			localStorage.setItem(
+				'currentSession',
+				JSON.stringify({ username, password })
+			)
 			dispatch({ type: LOGIN, payload: { username, password } })
 			// dispatch({ type: HIDE_MODAL })
 		} else {
@@ -62,11 +78,9 @@ export const loginUser =
 	}
 
 export const logout = () => (dispatch: Dispatch) => {
-	localStorage.removeItem('currentSession');
-	dispatch({type: LOGOUT});
-	// dispatch({ type: SHOW_MODAL })
+	localStorage.removeItem('currentSession')
+	dispatch({ type: LOGOUT })
 }
-
 
 export const checkAuth = (): CheckAuth => ({
 	type: CHECK_AUTH,
