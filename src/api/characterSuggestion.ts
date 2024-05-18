@@ -10,6 +10,15 @@ enum GraphqlQueryParams {
   species = "String"
 }
 
+export function filterParams(stateParams:Record<keyof QueryParams, null | string>):Partial<QueryParams>{
+  return Object.entries(stateParams)
+  .filter(([ _ , value ])=> value !==null)
+  .reduce<Record<string,string>>((acc,[key,value])=>{
+    acc[key] = value as string
+    return acc
+  },{})
+}
+
 function constructVariables(query: Partial<QueryParams>) {
   const variables: Record<string, string> = {$page:"Int"}
   Object.keys(query)

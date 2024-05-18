@@ -17,3 +17,13 @@ export async function fetchCharactersById(...idList:Array<number>) {
   return res
 }
 
+export function returnInitialQuery(search:string) {
+  const searchParams = new URLSearchParams(search)
+  return {
+    name: searchParams.get('name'),
+    page: searchParams.get('page') || "1",
+    status: searchParams.get('status'),
+    gender: searchParams.get('gender'),
+    species: searchParams.get('species'),
+  }
+}

@@ -4,11 +4,13 @@ import { ThunkDispatch, thunk } from 'redux-thunk'
 import { authReducer } from './reducers/authReducers'
 import { modalReducer } from './reducers/modalReducer'
 import { snackbarReducer } from './reducers/snackbarReducers'
+import { searchReducer } from './reducers/searchReducers'
 
 const rootReducer = combineReducers({
 	auth: authReducer,
 	snackbar: snackbarReducer,
 	modal: modalReducer,
+	search: searchReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>
