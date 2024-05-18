@@ -1,73 +1,88 @@
-import { Dispatch } from 'redux'
-import { CheckAuth, LogoutAction } from '../../types/authTypes'
+import {Dispatch} from 'redux'
+import {CheckAuth} from '../../types/authTypes'
+import {findInLocalStorage} from '../../utils/findInLocalStorage'
 import {
-	CHECK_AUTH,
-	HIDE_MODAL,
-	LOGIN,
-	LOGOUT,
-	REGISTER,
-	SHOW_MODAL,
-	SHOW_SNACKBAR,
+    CHECK_AUTH,
+    LOGIN,
+    LOGOUT,
+    REGISTER,
+    SHOW_SNACKBAR,
 } from './actionsTypes'
-import { findInLocalStorage } from '../../utils/findInLocalStorage'
+import {ThunkResult} from "../store";
 
 export const registerUser =
-	(username: string, email: string, password: string) =>
-	(dispatch: Dispatch) => {
-		const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
+    (username: string, email: string, password: string): ThunkResult<void> =>
+        (dispatch: Dispatch) => {
+            const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
 
-		const sameUsername = findInLocalStorage(storedUsers,'username',username)
-		const sameEmail = findInLocalStorage(storedUsers,'email',email)
+            const sameUsername = findInLocalStorage(storedUsers, 'username', username)
+            const sameEmail = findInLocalStorage(storedUsers, 'email', email)
 
-		if (sameUsername && sameEmail){
-			dispatch({type: SHOW_SNACKBAR,payload: '🤨 Такой username и email уже существуют',})
-			return;
-		}
-		if (sameUsername){
-			dispatch({type: SHOW_SNACKBAR,payload: '🤨 Такой username уже существует',})
-			return;
-		}
-		if (sameEmail){
-			dispatch({type: SHOW_SNACKBAR,payload: '🤨 Такой email уже существует',})
-			return;
-		}
-		storedUsers.push({ username, email, password })
+            if (sameUsername && sameEmail) {
+                dispatch({
+                    type: SHOW_SNACKBAR,
+                    payload: '🤨 Такой username и email уже существуют',
+                })
+                return
+            }
+            if (sameUsername) {
+                dispatch({
+                    type: SHOW_SNACKBAR,
+                    payload: '🤨 Такой username уже существует',
+                })
+                return
+            }
+            if (sameEmail) {
+                dispatch({
+                    type: SHOW_SNACKBAR,
+                    payload: '🤨 Такой email уже существует',
+                })
+                return
+            }
+            storedUsers.push({username, email, password})
 
-		localStorage.setItem('users', JSON.stringify(storedUsers))
-		localStorage.setItem('currentSession',JSON.stringify({username,password}))
-		
+            localStorage.setItem('users', JSON.stringify(storedUsers))
+            localStorage.setItem(
+                'currentSession',
+                JSON.stringify({username, password})
+            )
 
-		dispatch({ type: REGISTER, payload: { username, email, password } })
-		// dispatch({ type: HIDE_MODAL })
-	}
+            dispatch({type: REGISTER, payload: {username, email, password}})
+            // dispatch({ type: HIDE_MODAL })
+            dispatch({
+                type: SHOW_SNACKBAR,
+                payload: '😊 Добро пожаловать!',
+            })
+        }
 
 export const loginUser =
-	(username: string, password: string) => (dispatch: Dispatch) => {
-		const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
-		const user = storedUsers.find(
-			(usr: { username: string; password: string }) =>
-				usr.username === username && usr.password === password
-		)
+    (username: string, password: string): ThunkResult<void> => (dispatch: Dispatch) => {
+        const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
+        const user = storedUsers.find(
+            (usr: { username: string; password: string }) =>
+                usr.username === username && usr.password === password
+        )
 
-		if (user) {
-			localStorage.setItem('currentSession',JSON.stringify({username,password}))
-			dispatch({ type: LOGIN, payload: { username, password } })
-			// dispatch({ type: HIDE_MODAL })
-		} else {
-			dispatch({
-				type: SHOW_SNACKBAR,
-				payload: '🤨 Неправильный логин или пароль!',
-			})
-		}
-	}
+        if (user) {
+            localStorage.setItem(
+                'currentSession',
+                JSON.stringify({username, password})
+            )
+            dispatch({type: LOGIN, payload: {username, password}})
+            // dispatch({ type: HIDE_MODAL })
+        } else {
+            dispatch({
+                type: SHOW_SNACKBAR,
+                payload: '🤨 Неправильный логин или пароль!',
+            })
+        }
+    }
 
-export const logout = () => (dispatch: Dispatch) => {
-	localStorage.removeItem('currentSession');
-	dispatch({type: LOGOUT});
-	// dispatch({ type: SHOW_MODAL })
+export const logout = (): ThunkResult<void> => (dispatch: Dispatch) => {
+    localStorage.removeItem('currentSession')
+    dispatch({type: LOGOUT})
 }
 
-
 export const checkAuth = (): CheckAuth => ({
-	type: CHECK_AUTH,
+    type: CHECK_AUTH,
 })

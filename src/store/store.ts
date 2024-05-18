@@ -1,18 +1,20 @@
-import { AnyAction, combineReducers } from '@reduxjs/toolkit'
-import { applyMiddleware, createStore } from 'redux'
-import { ThunkDispatch, thunk } from 'redux-thunk'
-import { authReducer } from './reducers/authReducers'
-import { modalReducer } from './reducers/modalReducer'
-import { snackbarReducer } from './reducers/snackbarReducers'
+import {AnyAction, combineReducers} from '@reduxjs/toolkit'
+import {applyMiddleware, createStore} from 'redux'
+import {ThunkDispatch, thunk} from 'redux-thunk'
+import {authReducer} from './reducers/authReducers'
+import {modalReducer} from './reducers/modalReducer'
+import {snackbarReducer} from './reducers/snackbarReducers'
+import {ThunkAction} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-	auth: authReducer,
-	snackbar: snackbarReducer,
-	modal: modalReducer,
+    auth: authReducer,
+    snackbar: snackbarReducer,
+    modal: modalReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppDispatch = ThunkDispatch<RootState, void, AnyAction>
+export type ThunkResult<R> = ThunkAction<R, RootState, void, AnyAction>
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
