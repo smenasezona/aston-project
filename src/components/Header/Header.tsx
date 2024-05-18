@@ -16,6 +16,7 @@ import SearchBar from '../SearchBar/SearchBar'
 import { AppDispatch } from '../../store/store'
 import { logout } from '../../store/actions/authActions'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const pages = ['Вход', 'Регистрация']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -41,6 +42,12 @@ function Header() {
 	const handleExit = () => {
 		dispatch(logout());
 	}
+
+	useEffect(() => {
+		if (isAuth) {
+			setOpen({...open, isOpen:false});
+		}
+	},[isAuth])
 	
 	return (
 		<AppBar
