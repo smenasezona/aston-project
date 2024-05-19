@@ -17,6 +17,9 @@ import { AppDispatch } from '../../store/store'
 import { logout } from '../../store/actions/authActions'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { useTheme } from '../../context/ThemeContext'
 
 const pages = ['Вход', 'Регистрация']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -48,13 +51,12 @@ function Header() {
 			setOpen({...open, isOpen:false});
 		}
 	},[isAuth])
-	
+
+	const {isDark, toggleTheme} = useTheme();
+
 	return (
 		<AppBar
 			position='static'
-			sx={{
-				backgroundColor: '#1399a7',
-			}}
 		>
 			<Container maxWidth={false}>
 				<Toolbar disableGutters>
@@ -121,7 +123,13 @@ function Header() {
 							<Link to={'/history'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>История</Button></Link>
 					</Box>
 					}
-
+					<Button onClick={toggleTheme}>
+					{isDark ? (
+      		  <DarkModeIcon sx={{ color: 'white', scale: '1.2'}}/>
+      		) : (
+      		  <LightModeIcon sx={{ color: 'white', scale: '1.2' }}/>
+      		)}
+      		</Button>
 					<Box sx={{ flexGrow: 0 }}>
 						<SearchBar />
 						<Menu
