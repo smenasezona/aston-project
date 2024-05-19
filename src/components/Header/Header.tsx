@@ -18,6 +18,7 @@ import { logout } from '../../store/actions/authActions'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useTheme } from '../../context/ThemeContext'
 
 const pages = ['Вход', 'Регистрация']
@@ -123,7 +124,11 @@ function Header() {
 					</Box>
 					}
 					<Button onClick={toggleTheme}>
+					{isDark ? (
+      		  <DarkModeIcon sx={{ color: 'white', scale: '1.2'}}/>
+      		) : (
       		  <LightModeIcon sx={{ color: 'white', scale: '1.2' }}/>
+      		)}
       		</Button>
 					<Box sx={{ flexGrow: 0 }}>
 						<SearchBar />
