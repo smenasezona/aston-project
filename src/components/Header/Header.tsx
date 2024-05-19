@@ -17,6 +17,7 @@ import { AppDispatch } from '../../store/store'
 import { logout } from '../../store/actions/authActions'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 const pages = ['Вход', 'Регистрация']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -121,7 +122,9 @@ function Header() {
 							<Link to={'/history'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>История</Button></Link>
 					</Box>
 					}
-
+					<Button>
+      		  <LightModeIcon sx={{ color: 'white', scale: '1.2' }}/>
+      		</Button>
 					<Box sx={{ flexGrow: 0 }}>
 						<SearchBar />
 						<Menu
