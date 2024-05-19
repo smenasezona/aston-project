@@ -1,4 +1,4 @@
-import { QueryParams } from "../types/queryTypes"
+import { QueryParams, SearchByParamsResponse } from "../types/queryTypes"
 
 const GRAPHQL_URL = 'https://rickandmortyapi.com/graphql'
 
@@ -46,20 +46,32 @@ const buildSuggestionQuery = (query: Partial<QueryParams>) => `query getSuggesti
         count,next,prev,pages
       }
       results {
-        name
+        name,id
       }
     }
   }`
 
 export async function fetchSuggestions(variables: Partial<QueryParams>) {
-  const res = await fetch(
-    GRAPHQL_URL,
-    {
-      method: 'POST',
-      body: JSON.stringify({ query: buildSuggestionQuery(variables), variables: { ...variables, page: +(variables.page ?? 1) } }),
-      headers: { 'content-type': 'application/json' }
-    }
-  )
-    .then(x => x.json())
-  return res
+  try {
+    const res = await fetch(
+      GRAPHQL_URL,
+      {
+        method: 'POST',
+        body: JSON.stringify({ query: buildSuggestionQuery(variables), variables: { ...variables, page: +(variables.page ?? 1) } }),
+        headers: { 'content-type': 'application/json' }
+      }
+    )
+      .then(x => x.json()) as {data:{characters:SearchByParamsResponse<{name:string,id:string}[]>}}
+      return res
+
+  } catch {}
+    return {data:{characters:{
+      info: {
+        count: 0,
+        pages: 0,
+        next: null,
+        prev: null
+      },
+      results: []
+    }}}
 }

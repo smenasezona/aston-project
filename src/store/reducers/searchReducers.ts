@@ -1,11 +1,11 @@
 import { returnInitialQuery } from '../../api/api';
-import { Character, SearchActinos } from '../../types/queryTypes'
+import { Character, SearchActinos, Suggestion } from '../../types/queryTypes'
 import { SET_CHARACTERS, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from '../actions/actionsTypes'
 
 export type SearchState = {
 	queryParams: ReturnType<typeof returnInitialQuery>
 	characters: Array<Character>,
-	suggestions: Array<string>
+	suggestions: Array<Suggestion>
 }
 
 const initalState: SearchState = {
@@ -21,16 +21,8 @@ export const searchReducer = (state = initalState, action: SearchActinos) => {
 		case SET_CHARACTERS:
 			return { ...state, characters: action.payload }
 		case SET_SUGGESTIONS:
-			return { ...state, suggestions: action.payload }
-		// case SET_NAME:
-		// 	return 
-		// case SET_STATUS:
-		// 	return 
-		// case SET_GENDER:
-		// 	return 
-		// case SET_SPECIES:
-		// 	return 
-		
+			return { ...state, suggestions: action.payload }	
+
 			default:
 			return state
 	}

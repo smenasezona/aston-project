@@ -6,14 +6,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp';
+import { Character } from '../../types/queryTypes';
 
-interface CardItemProps {
-  onClick: () => void;
-}
-
-function CardItem({onClick}: CardItemProps) {
+function CardItem(props: Character) {
   return (
-    <Card onClick={onClick}
+    <Card
           sx={{ minWidth: 150, position: 'relative', paddingTop: '20px' }}>
       <Button style={{ position: 'absolute', top: '5px', right: '0px'}}>
         <HighlightOffSharpIcon />
@@ -21,12 +18,12 @@ function CardItem({onClick}: CardItemProps) {
       <CardContent>
         <Typography gutterBottom variant="h5"
                     component="div">
-          Название
+          {props.name ?? 'undefined'}
         </Typography>
       </CardContent>
       <CardMedia
         sx={{ height: 170 }}
-        image="https://robohash.org/38.180.2.10.png"
+        image={props.image ?? "https://robohash.org/38.180.2.10.png"}
         title="title"
       />
       <CardActions>

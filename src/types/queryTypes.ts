@@ -8,10 +8,11 @@ export type Info = {
 }
 
 export type Results = Array<Character>
+export type SuggestionsList = Array<string>
 
-export type SearchByParamsResponse = {
+export type SearchByParamsResponse<T> = {
   info: Info,
-  results: Results
+  results: T
 }
 
 export enum AvailableQueryKeys  {
@@ -37,7 +38,10 @@ export type Character = {
   url: string,
   created: string
 }
-
+export type Suggestion = {
+  name: string,
+  id: string
+}
 export type SetSearchParams = {
   type: typeof SET_SEARCH_PARAMS
   payload: Partial<QueryParams>
@@ -50,7 +54,7 @@ export type SetCharacters = {
 
 export type SetSuggestions = {
   type: typeof SET_SUGGESTIONS
-  payload: Array<string>
+  payload: Array<Suggestion>
 }
 
 export type SearchActinos = SetSearchParams | SetCharacters | SetSuggestions
