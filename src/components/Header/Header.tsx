@@ -56,9 +56,6 @@ function Header() {
 	return (
 		<AppBar
 			position='static'
-			sx={{
-				backgroundColor: '#1399a7',
-			}}
 		>
 			<Container maxWidth={false}>
 				<Toolbar disableGutters>

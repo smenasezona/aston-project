@@ -15,14 +15,14 @@ const AppContent: React.FC = () => {
 		<>
 			<div className={`app ${isDark ? "dark" : "light"}`}>
 				<Header />
+				<Routes >
+					<Route path='/' element={<Home />} />
+					<Route path='/favorite' element={<Favorite />} />
+					<Route element={<PrivateRoute />}>
+						<Route path='/history' element={<History />} />
+					</Route>
+				</Routes>
 			</div>
-			<Routes >
-				<Route path='/' element={<Home />} />
-				<Route path='/favorite' element={<Favorite />} />
-				<Route element={<PrivateRoute />}>
-					<Route path='/history' element={<History />} />
-				</Route>
-			</Routes>
 		</>
 	)
 }
