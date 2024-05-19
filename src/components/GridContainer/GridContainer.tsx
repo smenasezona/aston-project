@@ -15,7 +15,7 @@ function GridContainer(props: GridContainerProps) {
       style={{ marginTop: '20px' }}>
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing={6}>
-          {props.characters.map((character) => (
+          {props.characters && props.characters.map((character) => (
             <Grid key={character.id} item>
               <CardItem {...character} />
             </Grid>
