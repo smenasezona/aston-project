@@ -6,13 +6,17 @@ import Home from './screens/home/Home'
 import History from './screens/history/History'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import withAuth from './utils/hoc/withAuth'
+import { useTheme } from './context/ThemeContext'
 
 
 const AppContent: React.FC = () => {
+	const {isDark} = useTheme();
 	return (
 		<>
-			<Header />
-			<Routes>
+			<div className={`app ${isDark ? "dark" : "light"}`}>
+				<Header />
+			</div>
+			<Routes >
 				<Route path='/' element={<Home />} />
 				<Route path='/favorite' element={<Favorite />} />
 				<Route element={<PrivateRoute />}>
