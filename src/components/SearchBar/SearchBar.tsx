@@ -1,4 +1,3 @@
-// components/SearchBar.tsx
 import SearchIcon from '@mui/icons-material/Search'
 import { Autocomplete, Tooltip } from '@mui/material'
 import React from 'react'
@@ -8,27 +7,37 @@ import {
 	StyledInputBase,
 } from '../../styles/searchStyles'
 import useAPI from '../../utils/hooks/useAPI'
+import { filterParams } from '../../api/characterSuggestion'
 
 const SearchBar: React.FC = () => {
 	const API = useAPI()
 
+	console.log('search bar rerender', API.storedQuery.name)
 	return <Tooltip title='Open settings'>
 		<Search>
 			<SearchIconWrapper>
 				<SearchIcon />
 			</SearchIconWrapper>
 			<Autocomplete
+				freeSolo
+				filterOptions={(x)=>x.length ? x:[{name:'No options', id:'-1'}]}
+				getOptionDisabled={(option)=> option.id === '-1'}
+
 				onKeyUp={(event) => {
+					const input =event.target as HTMLInputElement
+
 					if (event.code === 'Enter') {
-						API.search()
+						const newQuery =  {...filterParams(API.storedQuery),name:input.value,page:"1"}
+						API.updateQuery(newQuery)
+						API.search(newQuery)
 					}
 				}}
 				onInputChange={(_, value) => {
 					API.updateQuery({name:value})
 					API.updateSuggestions({name:value})
 				}}
-				getOptionKey={(option)=>option.id}
-				getOptionLabel={(option)=>option.name}
+				getOptionKey={(option)=>(typeof option === 'string' ? option: option.id)}
+				getOptionLabel={(option)=>(typeof option === 'string' ? option: option.name)}
 				isOptionEqualToValue={(option,value)=>option.id === value.id}
 				disablePortal
 				id="combo-box-demo"
