@@ -13,9 +13,6 @@ import { fillingIdList, updatePostList } from './store/actions/favoriteActions'
 import { getFavoriteFromLocalStorage } from './utils/getFavoriteFromLocalStorage'
 import { useTheme } from './context/ThemeContext'
 
-
-
-
 const AppContent: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
 	const idList = useSelector((state:any) => state.favorite.idList)

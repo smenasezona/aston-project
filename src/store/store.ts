@@ -5,8 +5,9 @@ import { authReducer } from './reducers/authReducers'
 import { modalReducer } from './reducers/modalReducer'
 import { snackbarReducer } from './reducers/snackbarReducers'
 import { searchReducer } from './reducers/searchReducers'
-import {ThunkAction} from "@reduxjs/toolkit";
+import { ThunkAction } from '@reduxjs/toolkit'
 import { favoriteReducer } from './reducers/favoriteReducer'
+import { pageReducer } from './reducers/pageReducer'
 
 const rootReducer = combineReducers({
 	auth: authReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
 	modal: modalReducer,
 	search: searchReducer,
 	favorite: favoriteReducer,
+	page: pageReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
