@@ -24,6 +24,10 @@ const usePageManagement = (initialLoad: boolean) => {
 		}
 	}, [page, navigate, location.search, dispatch, initialLoad])
 
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [page])
+
 	const handlePageChange = (newPage: number) => {
 		dispatch(setPage(newPage))
 	}

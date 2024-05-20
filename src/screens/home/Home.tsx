@@ -14,6 +14,7 @@ function Home() {
 
 	return (
 		<>
+			{/*<CustomPagination page={page} onPageChange={handlePageChange} />*/}
 			<GridContainer characters={search.characters} />
 			<CustomPagination page={page} onPageChange={handlePageChange} />
 		</>

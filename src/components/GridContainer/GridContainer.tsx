@@ -22,6 +22,7 @@ function GridContainer(props: GridContainerProps) {
 					))}
 				</Grid>
 			</Grid>
+
 		</Grid>
 	)
 }
