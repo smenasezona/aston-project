@@ -12,7 +12,6 @@ import { QueryParams } from '../../types/queryTypes'
 import { setPage } from '../../store/actions/pageActions'
 import CustomPagination from '../../components/CustomPagination/CustomPagination'
 import { useNavigate } from 'react-router-dom'
-import { useRef } from 'react'
 import { useState } from 'react'
 
 function Home() {
