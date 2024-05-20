@@ -17,5 +17,4 @@ export const ADD_TO_LIST = 'ADD_TO_LIST'
 export const DELETE_FROM_LIST = 'DELETE_FROM_LIST'
 export const UPDATE_POST_LIST = 'UPDATE_POST_LIST'
 export const FILLING_ID_LIST = 'FILLING_ID_LIST'
-
-export const SET_PAGE = 'SET_PAGE'
+export const SET_PAGES = 'SET_PAGES'

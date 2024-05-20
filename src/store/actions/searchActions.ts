@@ -8,7 +8,7 @@ import {
 	SetSuggestions,
 	Suggestion,
 } from '../../types/queryTypes'
-import { SET_CHARACTERS, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from './actionsTypes'
+import { SET_CHARACTERS, SET_PAGES, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from './actionsTypes'
 import { fetchCharacters } from '../../api/api'
 import { fetchSuggestions } from '../../api/characterSuggestion'
 
@@ -27,9 +27,16 @@ export const setSuggestionsAction = (suggestionsList: Suggestion[]): SetSuggesti
 	payload: suggestionsList,
 })
 
+export const setPagesAction = (page: number) => ({
+	type: SET_PAGES,
+	payload: page,
+})
+
 export const setCharacters = (queryParams: Partial<QueryParams>) => {
 	return async (dispatch: Dispatch) => {
 		const res: SearchByParamsResponse<Character[]> = await fetchCharacters(queryParams)
+		console.log(res.results)
+		dispatch(setPagesAction(res.info.pages))
 		dispatch(setCharactersAction(res.results))
 	}
 }

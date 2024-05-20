@@ -1,4 +1,4 @@
-import { SET_CHARACTERS, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from "../store/actions/actionsTypes"
+import { SET_CHARACTERS, SET_PAGES, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from "../store/actions/actionsTypes"
 
 export type Info = {
   count: number,
@@ -57,4 +57,9 @@ export type SetSuggestions = {
   payload: Array<Suggestion>
 }
 
-export type SearchActinos = SetSearchParams | SetCharacters | SetSuggestions
+export type SetPages = {
+  type: typeof SET_PAGES
+  payload: number
+}
+
+export type SearchActinos = SetSearchParams | SetCharacters | SetSuggestions | SetPages
