@@ -4,20 +4,22 @@ const REST_URL = 'https://rickandmortyapi.com/api'
 
 export async function fetchCharacters(query: Partial<QueryParams>) {
   const path = new URLSearchParams(query)
+  const nullResponse = {
+    info: {
+      count: 0,
+      pages: 0,
+      next: null,
+      prev: null
+    },
+    results: []
+  }
+  
   try {
     const res = await fetch(`${REST_URL}/character?${path}`).then(x => x.json())
-    return res
+    return res.error ? nullResponse : res
 
   } catch {
-    return {
-      info: {
-        count: 0,
-        pages: 0,
-        next: null,
-        prev: null
-      },
-      results: []
-    }
+    return nullResponse
   }
   
 }
