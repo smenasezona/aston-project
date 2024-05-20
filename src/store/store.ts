@@ -6,12 +6,14 @@ import { modalReducer } from './reducers/modalReducer'
 import { snackbarReducer } from './reducers/snackbarReducers'
 import { searchReducer } from './reducers/searchReducers'
 import {ThunkAction} from "@reduxjs/toolkit";
+import { favoriteReducer } from './reducers/favoriteReducer'
 
 const rootReducer = combineReducers({
 	auth: authReducer,
 	snackbar: snackbarReducer,
 	modal: modalReducer,
-	search: searchReducer
+	search: searchReducer,
+	favorite: favoriteReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
