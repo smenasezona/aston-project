@@ -1,0 +1,29 @@
+import { ADD_TO_LIST, DELETE_FROM_LIST, FILLING_ID_LIST, UPDATE_POST_LIST } from "../store/actions/actionsTypes"
+
+export type FavoriteState = {
+    idList:Array<number>
+    postList: Array<{}>
+}
+
+export type SetAddTypes = {
+    type: typeof ADD_TO_LIST
+    payload: number
+}
+
+export type SetDeleteTypes = {
+    type: typeof DELETE_FROM_LIST
+    payload: number
+}
+
+export type UpdatePostList = {
+    type: typeof UPDATE_POST_LIST,
+    payload: Array<{}>
+}
+
+export type FillingIdList = {
+    payload: any
+    type: typeof FILLING_ID_LIST
+}
+
+
+export type FavoriteActinos = SetAddTypes | SetDeleteTypes | UpdatePostList | FillingIdList
