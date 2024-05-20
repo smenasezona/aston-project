@@ -1,11 +1,18 @@
 import React, { memo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Character } from '../../types/queryTypes'
 
 interface CharacterDetailsProps {
-  character: Character
+  character?: Character;
 }
 
 function CharacterDetails(props: CharacterDetailsProps) {
+  const location = useLocation();
+  const { character } = location.state || {};
+
+  if (!props.character) {
+    return <div>Описание отсутствует</div>;
+  }
 
   return (
     <div>
@@ -15,6 +22,6 @@ function CharacterDetails(props: CharacterDetailsProps) {
       <p>{props.character.gender}</p>
     </div>
   );
-};
+}
 
-export default memo(CharacterDetails)
+export default memo(CharacterDetails);

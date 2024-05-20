@@ -21,6 +21,11 @@ function CardItem(props: Character) {
   const idList = useSelector((state: any) => state.favorite.idList)
   const user = useSelector((state:any) => state.auth.user)
 
+
+  const clickDetails = () => {
+    console.log({ character: props });
+    };
+
   const handleAddToFavorite = () => {
     if (user) idList.includes(props.id) ? dispatch(deleteFromListAction(props.id)) : dispatch(addToListAction(props.id))
     else dispatch({
@@ -47,7 +52,7 @@ function CardItem(props: Character) {
         title="title"
       />
       <CardActions>
-        <Button size="small">Подробнее</Button>
+        <Button size="small" onClick={clickDetails}>Подробнее</Button>
       </CardActions>
     </Card>
   );

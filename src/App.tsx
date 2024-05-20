@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Routes, } from 'react-router-dom'
-import Header from './components/Header/Header'
+import Header from './components/Header/Header';
 import Favorite from './screens/favorite/Favorite'
 import Home from './screens/home/Home'
 import History from './screens/history/History'
@@ -46,7 +46,7 @@ const AppContent: React.FC = () => {
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route element={<PrivateRoute />}>
-					<Route path='/favorite' element={<Favorite />} />
+				<Route path='/favorite' element={<Favorite />} />
 				</Route>
 				<Route element={<PrivateRoute />}>
 					<Route path='/history' element={<History />} />
