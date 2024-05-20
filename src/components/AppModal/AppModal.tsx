@@ -1,3 +1,4 @@
+import React,{memo} from 'react'
 import { Box, Modal, Snackbar, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -60,4 +61,4 @@ function AppModal(props: AppModalProps) {
 	)
 }
 
-export default AppModal
+export default memo(AppModal)

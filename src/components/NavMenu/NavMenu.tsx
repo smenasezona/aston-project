@@ -1,7 +1,7 @@
 // components/NavMenu.tsx
 import MenuIcon from '@mui/icons-material/Menu'
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
-import React from 'react'
+import React,{memo} from 'react'
 
 type NavMenuProps = {
 	pages: string[]
@@ -56,4 +56,4 @@ const NavMenu: React.FC<NavMenuProps> = ({
 	</Box>
 )
 
-export default NavMenu
+export default memo(NavMenu)
