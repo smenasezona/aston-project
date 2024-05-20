@@ -11,7 +11,6 @@ import {
 import { SET_CHARACTERS, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from './actionsTypes'
 import { fetchCharacters } from '../../api/api'
 import { fetchSuggestions } from '../../api/characterSuggestion'
-import { SET_PAGE } from './actionsTypes'
 
 export const setSearchParamsAction = (query: Partial<QueryParams>): SetSearchParams => ({
 	type: SET_SEARCH_PARAMS,

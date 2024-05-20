@@ -1,7 +1,6 @@
 import { returnInitialQuery } from '../../api/api'
 import { Character, SearchActinos, Suggestion } from '../../types/queryTypes'
 import { SET_CHARACTERS, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from '../actions/actionsTypes'
-import { SET_PAGE } from '../actions/actionsTypes'
 
 export type SearchState = {
 	queryParams: ReturnType<typeof returnInitialQuery>
