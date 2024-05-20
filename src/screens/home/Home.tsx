@@ -16,7 +16,6 @@ function Home() {
 
 	useEffect(() => {
 		const updatedParams = {...returnInitialQuery(location.search) }
-		console.log('return init',returnInitialQuery(location.search))
 		dispatch(setSearchParamsAction(filterParams(updatedParams)))
 		dispatch(setCharacters(filterParams(updatedParams)))
 		// eslint-disable-next-line react-hooks/exhaustive-deps

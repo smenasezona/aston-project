@@ -12,7 +12,6 @@ import { filterParams } from '../../api/characterSuggestion'
 const SearchBar: React.FC = () => {
 	const API = useAPI()
 
-	console.log('search bar rerender', API.storedQuery.name)
 	return <Tooltip title='Open settings'>
 		<Search>
 			<SearchIconWrapper>

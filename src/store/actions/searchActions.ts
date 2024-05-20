@@ -35,7 +35,6 @@ export const setPagesAction = (page: number) => ({
 export const setCharacters = (queryParams: Partial<QueryParams>) => {
 	return async (dispatch: Dispatch) => {
 		const res: SearchByParamsResponse<Character[]> = await fetchCharacters(queryParams)
-		console.log(res.results)
 		dispatch(setPagesAction(res.info.pages))
 		dispatch(setCharactersAction(res.results))
 	}
