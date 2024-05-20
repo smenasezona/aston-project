@@ -1,5 +1,5 @@
-import React, { memo, useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Route, Routes, } from 'react-router-dom'
 import Header from './components/Header/Header'
 import Favorite from './screens/favorite/Favorite'
 import Home from './screens/home/Home'
@@ -10,11 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from './store/store'
 import { fetchCharactersById } from './api/api'
 import { fillingIdList, updatePostList } from './store/actions/favoriteActions'
-import { getFavoriteFromLocalStorage } from './utils/getFavoriteFromLocalStorage'
 import { useTheme } from './context/ThemeContext'
-
-
-
 
 const AppContent: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
