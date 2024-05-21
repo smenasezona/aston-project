@@ -7,7 +7,7 @@ const initialState: FavoriteState = {
     postList: [],
 }
 
-export const favoriteReducer = (state = initialState, action:FavoriteActinos) => {
+export const favoriteReducer = (state = initialState, action:FavoriteActinos): FavoriteState => {
     switch(action.type){
         case ADD_TO_LIST:
             return {...state,idList: [...state.idList,action.payload]}
