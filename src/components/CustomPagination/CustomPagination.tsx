@@ -1,21 +1,22 @@
 import { Stack } from '@mui/material'
 import { Pagination } from '@mui/material'
 import React from 'react'
-import useAPI from '../../utils/hooks/useAPI'
-import { filterParams } from '../../api/characterSuggestion'
 
+type customPaginationProps = {
+	currentPage:number
+	pageCount?:number
+	onPageChange: (event: React.ChangeEvent<unknown>, newPage: number) => void
+}
 
-type customPaginationProps = {}
-
-const CustomPagination: React.FC<customPaginationProps> = () => {
-	const  API = useAPI()
+const CustomPagination: React.FC<customPaginationProps> = (props:customPaginationProps) => {
 	return (
 		<Stack spacing={2} justifyContent={'center'} alignItems={'center'} margin={'2rem'}>
-			<Pagination count={API.pagesCount || 1} page={+API.storedQuery.page} onChange={(_,page)=>{
-				const newQuery = {...filterParams(API.storedQuery),page:`${page}`}
-				API.updateQuery(newQuery)
-				API.search(newQuery)
-			}} variant='outlined' shape='rounded' />
+			<Pagination
+				count={props.pageCount || 1}
+				page={props.currentPage}
+				onChange={props.onPageChange}
+				variant='outlined'
+				shape='rounded' />
 		</Stack>
 	)
 }
