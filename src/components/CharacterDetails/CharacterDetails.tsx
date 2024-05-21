@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { memo, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { Character } from '../../types/queryTypes'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';

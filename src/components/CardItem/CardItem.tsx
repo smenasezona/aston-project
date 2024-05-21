@@ -12,6 +12,7 @@ import { addToListAction, deleteFromListAction } from '../../store/actions/favor
 import { SHOW_SNACKBAR } from '../../store/actions/actionsTypes';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -21,9 +22,11 @@ function CardItem(props: Character) {
   const idList = useSelector((state: any) => state.favorite.idList)
   const user = useSelector((state:any) => state.auth.user)
 
-
+  const navigate = useNavigate();
   const clickDetails = () => {
     console.log({ character: props });
+    console.log(`навигация /character/${props.id}`);
+    navigate(`/character/${props.id}`);
     };
 
   const handleAddToFavorite = () => {

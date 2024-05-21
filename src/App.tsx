@@ -11,6 +11,7 @@ import { AppDispatch } from './store/store'
 import { fetchCharactersById } from './api/api'
 import { fillingIdList, updatePostList } from './store/actions/favoriteActions'
 import { useTheme } from './context/ThemeContext'
+import CharacterDetails from './components/CharacterDetails/CharacterDetails';
 
 const AppContent: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
@@ -47,6 +48,7 @@ const AppContent: React.FC = () => {
 				<Route path='/' element={<Home />} />
 				<Route element={<PrivateRoute />}>
 				<Route path='/favorite' element={<Favorite />} />
+				<Route path='/character/:id' element={<CharacterDetails />} />
 				</Route>
 				<Route element={<PrivateRoute />}>
 					<Route path='/history' element={<History />} />
