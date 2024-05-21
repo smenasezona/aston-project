@@ -5,7 +5,7 @@ import { getFavoriteFromLocalStorage } from "../../utils/getFavoriteFromLocalSto
 
 
 export const addToListAction = (id:number) => {
-    return (dispatch:Dispatch,getState:any) =>{
+    return (dispatch:Dispatch,getState:() => {[key: string]: any}) =>{
         dispatch({type:ADD_TO_LIST, payload:id})
 
         const obj = getFavoriteFromLocalStorage()
@@ -16,7 +16,7 @@ export const addToListAction = (id:number) => {
 }
 
 export const deleteFromListAction = (id:number) => {
-    return (dispatch:Dispatch,getState:any) =>{
+    return (dispatch:Dispatch,getState:() => {[key: string]: any}) =>{
         dispatch({type:DELETE_FROM_LIST, payload:id})
 
         const obj = getFavoriteFromLocalStorage()
