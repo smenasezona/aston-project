@@ -15,6 +15,7 @@ export default function useAPI() {
     storedQuery: search.queryParams,
     charactersList: search.characters,
     suggestions: search.suggestions,
+    pagesCount: search.pages,
     search(params=filterParams(search.queryParams)) {
       const navigateParams = new URLSearchParams(params)
       navigate(`/?${navigateParams}`)

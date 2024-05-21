@@ -2,21 +2,21 @@ import { Stack } from '@mui/material'
 import { Pagination } from '@mui/material'
 import React from 'react'
 
-
 type customPaginationProps = {
-	page: number,
-	onPageChange: (page: number) => void
+	currentPage:number
+	pageCount?:number
+	onPageChange: (event: React.ChangeEvent<unknown>, newPage: number) => void
 }
 
-const CustomPagination: React.FC<customPaginationProps> = ({ page, onPageChange }) => {
-
-	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-		onPageChange(value)
-	}
-
+const CustomPagination: React.FC<customPaginationProps> = (props:customPaginationProps) => {
 	return (
 		<Stack spacing={2} justifyContent={'center'} alignItems={'center'} margin={'2rem'}>
-			<Pagination count={42} page={page} onChange={handleChange} variant='outlined' shape='rounded' />
+			<Pagination
+				count={props.pageCount || 1}
+				page={props.currentPage}
+				onChange={props.onPageChange}
+				variant='outlined'
+				shape='rounded' />
 		</Stack>
 	)
 }

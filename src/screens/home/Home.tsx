@@ -1,22 +1,36 @@
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import GridContainer from '../../components/GridContainer/GridContainer'
-import { RootState } from '../../store/store'
-import { SearchState } from '../../store/reducers/searchReducers'
+import { AppDispatch } from '../../store/store'
 import CustomPagination from '../../components/CustomPagination/CustomPagination'
-import useInitialLoad from '../../utils/hooks/useInitialLoad'
-import usePage from '../../utils/hooks/usePage'
+import { useLocation } from 'react-router-dom'
+import { filterParams } from '../../api/characterSuggestion'
+import { returnInitialQuery } from '../../api/api'
+import { setCharacters } from '../../store/actions/searchActions'
+import { useEffect } from 'react'
+import useAPI from '../../utils/hooks/useAPI'
 
 function Home() {
+	const location = useLocation()
+	const API = useAPI()
+	const dispatch = useDispatch<AppDispatch>()
 
-	const search = useSelector<RootState>((state) => state.search) as SearchState
-	const initialLoad = useInitialLoad()
-	const { page, handlePageChange } = usePage(initialLoad)
+	useEffect(() => {
+		const updatedParams = {...returnInitialQuery(location.search) }
+		API.updateQuery(filterParams(updatedParams))
+		dispatch(setCharacters(filterParams(updatedParams)))
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [location])
+
+	const switchSearchPage: (event: React.ChangeEvent<unknown>, newPage: number) => void = (_,newPage) => {
+		const newQuery = {...filterParams(API.storedQuery),page:`${newPage}`}
+		API.updateQuery(newQuery)
+		API.search(newQuery)
+	}
 
 	return (
 		<>
-			{/*<CustomPagination page={page} onPageChange={handlePageChange} />*/}
-			<GridContainer characters={search.characters} />
-			<CustomPagination page={page} onPageChange={handlePageChange} />
+			<GridContainer characters={API.charactersList} />
+			<CustomPagination pageCount={API.pagesCount} onPageChange={switchSearchPage} currentPage={+API.storedQuery.page} />
 		</>
 	)
 }
