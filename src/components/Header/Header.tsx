@@ -52,7 +52,7 @@ function Header() {
 		}
 	},[isAuth])
 
-	const {isDark, toggleTheme} = useTheme();
+	const {theme, toggleTheme} = useTheme();
 
 	return (
 		<AppBar
@@ -124,7 +124,7 @@ function Header() {
 					</Box>
 					}
 					<Button onClick={toggleTheme}>
-					{isDark ? (
+					{theme === 'dark' ? (
       		  <DarkModeIcon sx={{ color: 'white', scale: '1.2'}}/>
       		) : (
       		  <LightModeIcon sx={{ color: 'white', scale: '1.2' }}/>
