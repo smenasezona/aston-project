@@ -61,21 +61,21 @@ function Header() {
 			<Container maxWidth={false}>
 				<Toolbar disableGutters>
 					<Typography
-						variant='h5'
+						variant='h6'
 						noWrap
 						component='a'
-						href='#app-bar-with-responsive-menu'
+						href='/'
 						sx={{
 							mr: 2,
 							display: { xs: 'none', md: 'flex' },
-							fontFamily: 'Arial',
-							fontWeight: 600,
+							fontFamily: 'Inter',
+							fontWeight: 500,
 							letterSpacing: '.1rem',
 							color: 'inherit',
 							textDecoration: 'none',
 						}}
 					>
-						Waifu
+						R&M Wiki
 					</Typography>
 
 					<NavMenu
@@ -90,19 +90,19 @@ function Header() {
 						variant='h5'
 						noWrap
 						component='a'
-						href='#app-bar-with-responsive-menu'
+						href='/'
 						sx={{
 							mr: 2,
 							display: { xs: 'flex', md: 'none' },
 							flexGrow: 1,
 							fontFamily: 'Arial',
-							fontWeight: 600,
+							fontWeight: 500,
 							letterSpacing: '.1rem',
 							color: 'inherit',
 							textDecoration: 'none',
 						}}
 					>
-						Waifu
+						R&M Wiki
 					</Typography>
 					
 					{!isAuth ?
