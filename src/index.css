@@ -10,6 +10,11 @@ a{
 
 .app.dark {
     background-color: rgb(84, 84, 100);
+    color: #fafafa;
+}
+
+.app.dark a {
+    color: #fafafa;
 }
 
 .app.light {
