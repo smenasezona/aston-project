@@ -6,7 +6,7 @@ import Home from './screens/home/Home'
 import History from './screens/history/History'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import withAuth from './utils/hoc/withAuth'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from './store/store'
 import { fetchCharactersById } from './api/api'
 import { fillingIdList, updatePostList } from './store/actions/favoriteActions'
@@ -19,7 +19,7 @@ const AppContent: React.FC = () => {
 	const idList = useSelector((state: any) => state.favorite.idList)
 	const user = useSelector((state: any) => state.auth.user)
 
-	const { isDark } = useTheme()
+	const { theme } = useTheme()
 
 	useEffect(() => {
 		dispatch(fillingIdList())
@@ -42,7 +42,7 @@ const AppContent: React.FC = () => {
 	}, [idList, user, dispatch])
 
 	return (
-		<div className={`app ${isDark ? 'dark' : 'light'}`}>
+		<div className={`app ${theme}`}>
 			<ErrorBoundary>
 				<Header />
 				<Routes>
