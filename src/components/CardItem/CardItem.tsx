@@ -26,6 +26,7 @@ function CardItem(props: Character) {
 
 	const handleAddToFavorite = () => {
 		if (user) idList.includes(props.id) ? dispatch(deleteFromListAction(props.id)) : dispatch(addToListAction(props.id))
+      
 		else
 			dispatch({
 				type: SHOW_SNACKBAR,
