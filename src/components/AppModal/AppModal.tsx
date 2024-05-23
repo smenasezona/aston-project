@@ -48,7 +48,7 @@ function AppModal(props: AppModalProps) {
 			>
 				<Box sx={appModalStyles}>
 					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						{props.open.content === 'Вход' ? <LoginForm /> : <RegForm />}
+						{props.open.content === 'Войти' ? <LoginForm /> : <RegForm />}
 					</Typography>
 				</Box>
 			</Modal>

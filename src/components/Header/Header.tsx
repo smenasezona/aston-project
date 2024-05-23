@@ -20,9 +20,11 @@ import { useEffect } from 'react'
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useTheme } from '../../context/ThemeContext'
+import SelectorMUI from '../ui/Selector/SelectorMUI'
+import { useLanguage } from '../../i18n/LanguageContext'
 
-const pages = ['Вход', 'Регистрация']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+const pages = ['login', 'reg']
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
 	const {
@@ -35,6 +37,8 @@ function Header() {
 		handleClick,
 		setOpen,
 	} = useHeaderState()
+
+	const {language,t} = useLanguage()
 
 	const dispatch = useDispatch<AppDispatch>()
 
@@ -79,7 +83,7 @@ function Header() {
 					</Typography>
 
 					<NavMenu
-						pages={pages}
+						pages={pages.map((page) => t(page).toString())}
 						anchorElNav={anchorElNav}
 						handleOpenNavMenu={handleOpenNavMenu}
 						handleCloseNavMenu={handleCloseNavMenu}
@@ -113,16 +117,17 @@ function Header() {
 								onClick={() => handleClick(page)}
 								sx={{ my: 2, color: 'white', display: 'block' }}
 							>
-								{page}
+								{t(page)}
 							</Button>
 						))}
 					</Box>
 					:
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-							<Link to={'/favorite'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>Избранное</Button></Link>
-							<Link to={'/history'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>История</Button></Link>
+							<Link to={'/favorite'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>{t('favorite')}</Button></Link>
+							<Link to={'/history'}><Button sx={{ my: 2, color: 'white', display: 'block' }}>{t('history')}</Button></Link>
 					</Box>
 					}
+					<SelectorMUI />
 					<Button onClick={toggleTheme}>
 					{theme === 'dark' ? (
       		  <DarkModeIcon sx={{ color: 'white', scale: '1.2'}}/>
@@ -148,15 +153,15 @@ function Header() {
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
 						>
-							{settings.map(setting => (
+							{/* {settings.map(setting => (
 								<MenuItem key={setting} onClick={handleCloseUserMenu}>
 									<Typography textAlign='center'>{setting}</Typography>
 								</MenuItem>
-							))}
+							))} */}
 						</Menu>
 					</Box>
 					{isAuth && <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-						<Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={handleExit}>Выйти</Button>
+						<Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={handleExit}>{t('exit')}</Button>
 						<Button sx={{ my: 2, color: 'white', display: 'block' }}>{user}</Button>
 					</Box>}
 				</Toolbar>

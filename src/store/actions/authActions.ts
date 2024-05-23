@@ -9,33 +9,36 @@ import {
     SHOW_SNACKBAR,
 } from './actionsTypes'
 import {ThunkResult} from "../store";
+import { useLanguage } from '../../i18n/LanguageContext';
+import { Translation } from '../../i18n/translation';
+
 
 export const registerUser =
-    (username: string, email: string, password: string): ThunkResult<void> =>
+    (username: string, email: string, password: string, t:(key: keyof Translation) => string | number): ThunkResult<void> =>
+
         (dispatch: Dispatch) => {
             const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
-
             const sameUsername = findInLocalStorage(storedUsers, 'username', username)
             const sameEmail = findInLocalStorage(storedUsers, 'email', email)
 
-            if (sameUsername && sameEmail) {
+            if (sameUsername && sameEmail ) {
                 dispatch({
                     type: SHOW_SNACKBAR,
-                    payload: '🤨 Такой username и email уже существуют',
+                    payload: t('userandemailexists'),
                 })
                 return
             }
             if (sameUsername) {
                 dispatch({
                     type: SHOW_SNACKBAR,
-                    payload: '🤨 Такой username уже существует',
+                    payload: t('usernameexists'),
                 })
                 return
             }
             if (sameEmail) {
                 dispatch({
                     type: SHOW_SNACKBAR,
-                    payload: '🤨 Такой email уже существует',
+                    payload: t('emailexists'),
                 })
                 return
             }
@@ -51,7 +54,7 @@ export const registerUser =
             // dispatch({ type: HIDE_MODAL })
             dispatch({
                 type: SHOW_SNACKBAR,
-                payload: '😊 Добро пожаловать!',
+                payload: t('welcome'),
             })
         }
 

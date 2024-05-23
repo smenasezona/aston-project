@@ -6,6 +6,7 @@ import { registerUser } from '../../../store/actions/authActions'
 import { AppDispatch } from '../../../store/store'
 import ButtonMUI from '../../ui/Button/ButtonMUI'
 import InputMUI from '../../ui/Input/InputMUI'
+import { useLanguage } from '../../../i18n/LanguageContext'
 
 type FormData = {
 	username: string
@@ -31,10 +32,12 @@ function RegForm() {
 		resolver: yupResolver(schema),
 	})
 
+	const {t} = useLanguage()
+
 	const dispatch = useDispatch<AppDispatch>()
 
 	const submit: SubmitHandler<FormData> = data => {
-		dispatch(registerUser(data.username, data.email, data.password))
+		dispatch(registerUser(data.username, data.email, data.password,t))
 		console.log('Отправленные данные:', data)
 	}
 
@@ -44,13 +47,13 @@ function RegForm() {
 
 	return (
 		<form onSubmit={handleSubmit(submit, error)}>
-			<h2>Регистрация</h2>
+			<h2>{t('reg')}</h2>
 			<div>
-				<label htmlFor='username'>Имя пользователя:</label>
+				<label htmlFor='username'>{t('username')}</label>
 				<InputMUI
 					type='text'
 					id='username'
-					placeholder='Имя пользователя'
+					placeholder={t('username')}
 					{...register('username')}
 				/>
 				{errors.username && (
@@ -64,7 +67,7 @@ function RegForm() {
 				<InputMUI
 					type='text'
 					id='email'
-					placeholder='Почта'
+					placeholder={t('mail')}
 					{...register('email')}
 				/>
 				{errors.email && (
@@ -74,11 +77,11 @@ function RegForm() {
 				)}
 			</div>
 			<div>
-				<label htmlFor='password'>Пароль:</label>
+				<label htmlFor='password'>{t('password')}</label>
 				<InputMUI
 					type='password'
 					id='password'
-					placeholder='Пароль'
+					placeholder={t('password')}
 					{...register('password')}
 				/>
 				{errors.password && (
@@ -87,7 +90,7 @@ function RegForm() {
 					</div>
 				)}
 			</div>
-			<ButtonMUI type='submit'>Зарегистрироваться</ButtonMUI>
+			<ButtonMUI type='submit'>{t('register')}</ButtonMUI>
 		</form>
 	)
 }
