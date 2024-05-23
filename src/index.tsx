@@ -6,6 +6,7 @@ import './index.css';
 import store from "./store/store";
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './i18n/LanguageContext';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -15,7 +16,9 @@ root.render(
       <Provider store={store}>
         <BrowserRouter>
               <ThemeProvider>
-                <App />
+                <LanguageProvider>
+                  <App />
+                </LanguageProvider>
               </ThemeProvider>
         </BrowserRouter>
       </Provider>

@@ -12,6 +12,7 @@ import { addToListAction, deleteFromListAction } from '../../store/actions/favor
 import { SHOW_SNACKBAR } from '../../store/actions/actionsTypes';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 
 
@@ -20,6 +21,8 @@ function CardItem(props: Character) {
 
   const idList = useSelector((state: any) => state.favorite.idList)
   const user = useSelector((state:any) => state.auth.user)
+
+  const {t} = useLanguage()
 
   const handleAddToFavorite = () => {
     if (user) idList.includes(props.id) ? dispatch(deleteFromListAction(props.id)) : dispatch(addToListAction(props.id))
@@ -47,7 +50,7 @@ function CardItem(props: Character) {
         title="title"
       />
       <CardActions>
-        <Button size="small">Подробнее</Button>
+        <Button size="small">{t('details')}</Button>
       </CardActions>
     </Card>
   );

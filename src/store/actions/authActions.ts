@@ -9,12 +9,14 @@ import {
     SHOW_SNACKBAR,
 } from './actionsTypes'
 import {ThunkResult} from "../store";
+import { useLanguage } from '../../i18n/LanguageContext';
+
 
 export const registerUser =
     (username: string, email: string, password: string): ThunkResult<void> =>
+
         (dispatch: Dispatch) => {
             const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
-
             const sameUsername = findInLocalStorage(storedUsers, 'username', username)
             const sameEmail = findInLocalStorage(storedUsers, 'email', email)
 
