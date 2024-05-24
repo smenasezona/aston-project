@@ -5,7 +5,6 @@ const useHeaderState = () => {
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 	const [open, setOpen] = useState({ isOpen: false, content: 'Войти' })
 
-
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget)
 	}

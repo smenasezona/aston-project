@@ -53,23 +53,24 @@ function Header() {
 		<AppBar position='static'>
 			<Container maxWidth={false}>
 				<Toolbar disableGutters>
-					<Typography
-						variant='h6'
-						noWrap
-						component='a'
-						href='/'
-						sx={{
-							mr: 2,
-							display: { xs: 'none', md: 'flex' },
-							fontFamily: 'Inter',
-							fontWeight: 500,
-							letterSpacing: '.1rem',
-							color: 'inherit',
-							textDecoration: 'none',
-						}}
-					>
-						R&M Wiki
-					</Typography>
+					<Link to={'/'}>
+						<Typography
+							variant='h6'
+							noWrap
+							component='a'
+							sx={{
+								mr: 2,
+								display: { xs: 'none', md: 'flex' },
+								fontFamily: 'Inter',
+								fontWeight: 500,
+								letterSpacing: '.1rem',
+								color: '#fafafa',
+								textDecoration: 'none',
+							}}
+						>
+							R&M Wiki
+						</Typography>
+					</Link>
 
 					<NavMenu
 						pages={pages.map(page => t(page).toString())}
@@ -79,24 +80,25 @@ function Header() {
 						handleClick={handleClick}
 					/>
 
-					<Typography
-						variant='h5'
-						noWrap
-						component='a'
-						href='/'
-						sx={{
-							mr: 2,
-							display: { xs: 'flex', md: 'none' },
-							flexGrow: 1,
-							fontFamily: 'Arial',
-							fontWeight: 500,
-							letterSpacing: '.1rem',
-							color: 'inherit',
-							textDecoration: 'none',
-						}}
-					>
-						R&M Wiki
-					</Typography>
+					<Link to={'/'}>
+						<Typography
+							variant='h5'
+							noWrap
+							component='a'
+							sx={{
+								mr: 2,
+								display: { xs: 'flex', md: 'none' },
+								flexGrow: 1,
+								fontFamily: 'Arial',
+								fontWeight: 500,
+								letterSpacing: '.1rem',
+								color: '#fafafa',
+								textDecoration: 'none',
+							}}
+						>
+							R&M Wiki
+						</Typography>
+					</Link>
 
 					{!isAuth ? (
 						<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
