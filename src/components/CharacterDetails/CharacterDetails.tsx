@@ -6,12 +6,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { fetchCharactersById } from '../../api/api';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import WcIcon from '@mui/icons-material/Wc';
+import AbcIcon from '@mui/icons-material/Abc';
+import AdbIcon from '@mui/icons-material/Adb';
+import ExposureIcon from '@mui/icons-material/Exposure';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 
 
@@ -39,34 +41,42 @@ function CharacterDetails() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <ImageIcon />
+            <AbcIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='name' secondary={character.name} />
+        <ListItemText primary='Name' secondary={character.name} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <WorkIcon />
+            <ExposureIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='status' secondary={character.status} />
+        <ListItemText primary='Status' secondary={character.status} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <AdbIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='species' secondary={character.species} />
+        <ListItemText primary='Species' secondary={character.species} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <BeachAccessIcon />
+            <WcIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='gender' secondary={character.gender} />
+        <ListItemText primary='Gender' secondary={character.gender} />
+      </ListItem>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <LocationOnIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary='Location' secondary={character.location.name} />
       </ListItem>
     </List>
   );
