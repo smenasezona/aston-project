@@ -15,6 +15,7 @@ import SearchBar from '../SearchBar/SearchBar'
 import SelectorMUI from '../ui/Selector/SelectorMUI'
 
 const pages = ['login', 'reg']
+
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
@@ -111,22 +112,42 @@ function Header() {
 					) : (
 						<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 							<Link to={'/favorite'}>
-								<Button sx={{ my: 2, color: 'white', display: 'block' }}>{t('favorite')}</Button>
+								<Button
+									sx={{
+										my: 1.35,
+										display: { xs: 'none', md: 'flex' },
+										fontFamily: 'Inter',
+										fontWeight: 500,
+										color: '#fafafa',
+										textDecoration: 'none',
+										'&:hover': {
+											color: '#e3dede',
+										},
+									}}
+								>
+									{t('favorite')}
+								</Button>
 							</Link>
 							<Link to={'/history'}>
-								<Button sx={{ my: 2, color: 'white', display: 'block' }}>{t('history')}</Button>
+								<Button
+									sx={{
+										my: 1.35,
+										display: { xs: 'none', md: 'flex' },
+										fontFamily: 'Inter',
+										fontWeight: 500,
+										color: '#fafafa',
+										textDecoration: 'none',
+										'&:hover': {
+											color: '#e3dede',
+										},
+									}}
+								>
+									{t('history')}
+								</Button>
 							</Link>
 						</Box>
 					)}
-					<SelectorMUI />
-					<Button onClick={toggleTheme}>
-						{theme === 'dark' ? (
-							<DarkModeIcon sx={{ color: 'white', scale: '1.2' }} />
-						) : (
-							<LightModeIcon sx={{ color: 'white', scale: '1.2' }} />
-						)}
-					</Button>
-					<Box sx={{ flexGrow: 0 }}>
+					<Box sx={{ marginRight: '2rem' }}>
 						<SearchBar />
 						<Menu
 							sx={{ mt: '45px' }}
@@ -143,20 +164,49 @@ function Header() {
 							}}
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
-						>
-							{/* {settings.map(setting => (
-								<MenuItem key={setting} onClick={handleCloseUserMenu}>
-									<Typography textAlign='center'>{setting}</Typography>
-								</MenuItem>
-							))} */}
-						</Menu>
+						></Menu>
 					</Box>
+					<SelectorMUI />
+					<Button onClick={toggleTheme}>
+						{theme === 'dark' ? (
+							<DarkModeIcon sx={{ color: 'white', scale: '1.2' }} />
+						) : (
+							<LightModeIcon sx={{ color: 'white', scale: '1.2' }} />
+						)}
+					</Button>
 					{isAuth && (
 						<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-							<Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={handleExit}>
+							<Button
+								sx={{
+									my: 1.35,
+									display: { xs: 'none', md: 'flex' },
+									fontFamily: 'Inter',
+									fontWeight: 500,
+									color: '#fafafa',
+									textDecoration: 'none',
+									'&:hover': {
+										color: '#e3dede',
+									},
+								}}
+								onClick={handleExit}
+							>
 								{t('exit')}
 							</Button>
-							<Button sx={{ my: 2, color: 'white', display: 'block' }}>{user}</Button>
+							<Button
+								sx={{
+									my: 1.35,
+									display: { xs: 'none', md: 'flex' },
+									fontFamily: 'Inter',
+									fontWeight: 500,
+									color: '#fafafa',
+									textDecoration: 'none',
+									'&:hover': {
+										color: '#e3dede',
+									},
+								}}
+							>
+								{user}
+							</Button>
 						</Box>
 					)}
 				</Toolbar>
