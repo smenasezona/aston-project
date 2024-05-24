@@ -10,6 +10,8 @@ import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import { fetchCharactersById } from '../../api/api';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -25,11 +27,15 @@ function CharacterDetails() {
   }, [])
 
   if (!character) {
-    return <div>Описание отсутствует</div>;
+    return (
+      <Box sx={{ display: 'flex', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
