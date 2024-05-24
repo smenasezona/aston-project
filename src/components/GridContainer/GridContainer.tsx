@@ -30,17 +30,17 @@ function GridContainer(props: GridContainerProps) {
 
 	return (
 		<Grid
-			sx={{ flexGrow: 1, maxWidth: '1280px', margin: '0 auto' }}
+			sx={{ flexGrow: 1, maxWidth: '1440px', margin: '0 auto' }}
 			container
-			spacing={3}
+			spacing={2}
 			style={{ marginTop: '20px' }}
 		>
 			<FilterMenu onFilterChange={handleFilterChange} />
 			<Grid item xs={12}>
-				<Grid container justifyContent='start' spacing={6}>
+				<Grid container justifyContent='start' spacing={10}>
 					{props.characters &&
 						props.characters.map(character => (
-							<Grid key={character.id} item>
+							<Grid key={character.id} item xs={2.4}>
 								<CardItem {...character} />
 							</Grid>
 						))}
