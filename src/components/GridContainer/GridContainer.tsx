@@ -5,7 +5,7 @@ import useAPI from '../../utils/hooks/useAPI'
 import CardItem from '../CardItem/CardItem'
 import FilterMenu, { Filters } from '../FilterMenu/FilterMenu'
 
-interface GridContainerProps {
+type GridContainerProps = {
 	characters: Character[]
 }
 

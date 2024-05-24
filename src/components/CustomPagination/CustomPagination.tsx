@@ -1,14 +1,13 @@
-import { Stack } from '@mui/material'
-import { Pagination } from '@mui/material'
+import { Pagination, Stack } from '@mui/material'
 import React from 'react'
 
-type customPaginationProps = {
-	currentPage:number
-	pageCount?:number
+interface customPaginationProps {
+	currentPage: number
+	pageCount?: number
 	onPageChange: (event: React.ChangeEvent<unknown>, newPage: number) => void
 }
 
-const CustomPagination: React.FC<customPaginationProps> = (props:customPaginationProps) => {
+const CustomPagination: React.FC<customPaginationProps> = (props: customPaginationProps) => {
 	return (
 		<Stack spacing={2} justifyContent={'center'} alignItems={'center'} margin={'2rem'}>
 			<Pagination
@@ -16,7 +15,8 @@ const CustomPagination: React.FC<customPaginationProps> = (props:customPaginatio
 				page={props.currentPage}
 				onChange={props.onPageChange}
 				variant='outlined'
-				shape='rounded' />
+				shape='rounded'
+			/>
 		</Stack>
 	)
 }

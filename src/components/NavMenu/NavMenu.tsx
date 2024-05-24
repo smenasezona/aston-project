@@ -1,9 +1,9 @@
 // components/NavMenu.tsx
 import MenuIcon from '@mui/icons-material/Menu'
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
-import React,{memo} from 'react'
+import React, { memo } from 'react'
 
-type NavMenuProps = {
+interface NavMenuProps {
 	pages: string[]
 	anchorElNav: null | HTMLElement
 	handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void

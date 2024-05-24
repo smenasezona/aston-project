@@ -1,10 +1,8 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
-import { useEffect } from 'react'
 import Cookies from 'js-cookie'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
-
-interface ThemeContextProps {
-	toggleTheme: () => void;
+type ThemeContextProps = {
+	toggleTheme: () => void
 	theme: string
 }
 
@@ -19,25 +17,20 @@ export const useTheme = () => {
 }
 
 interface ThemeProviderProps {
-	children: ReactNode;
+	children: ReactNode
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 	const savedTheme = Cookies.get('theme') || 'light'
 	const [theme, setTheme] = useState(savedTheme)
 
-
 	useEffect(() => {
 		Cookies.set('theme', theme, { expires: 365, sameSite: 'None', secure: true })
 	}, [theme])
 
 	const toggleTheme = () => {
-		setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+		setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'))
 	}
 
-	return (
-		<ThemeContext.Provider value={{ theme, toggleTheme }}>
-			{children}
-		</ThemeContext.Provider>
-	)
+	return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>
 }

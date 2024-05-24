@@ -2,10 +2,10 @@ import { returnInitialQuery } from '../../api/api'
 import { Character, SearchActinos, Suggestion } from '../../types/queryTypes'
 import { SET_CHARACTERS, SET_PAGES, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from '../actions/actionsTypes'
 
-export type SearchState = {
+export interface SearchState {
 	queryParams: ReturnType<typeof returnInitialQuery>
-	characters: Array<Character>,
-	suggestions: Array<Suggestion>,
+	characters: Array<Character>
+	suggestions: Array<Suggestion>
 	pages: number
 }
 
@@ -13,7 +13,7 @@ const initalState: SearchState = {
 	queryParams: returnInitialQuery(window.location.search),
 	characters: [],
 	suggestions: [],
-	pages: 0
+	pages: 0,
 }
 
 export const searchReducer = (state = initalState, action: SearchActinos) => {
@@ -30,4 +30,3 @@ export const searchReducer = (state = initalState, action: SearchActinos) => {
 			return state
 	}
 }
-
