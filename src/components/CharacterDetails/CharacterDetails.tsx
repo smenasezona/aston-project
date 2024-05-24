@@ -1,5 +1,5 @@
-import React, { memo, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { memo, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Character } from '../../types/queryTypes'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -9,16 +9,22 @@ import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import { fetchCharactersById } from '../../api/api';
 
-interface CharacterDetailsProps {
-  character?: Character;
-}
 
-function CharacterDetails(props: CharacterDetailsProps) {
-  const location = useLocation();
-  const { character } = location.state || {};
 
-  if (!props.character) {
+function CharacterDetails() {
+  const { id } = useParams()
+  const [character, setCharacter] = useState<Character | null>(null)
+
+  useEffect(() => {
+    if (typeof id !== 'undefined') {
+      fetchCharactersById(+id).then((res) => { setCharacter(res) }).catch(() => { setCharacter(null) })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!character) {
     return <div>Описание отсутствует</div>;
   }
 
@@ -30,7 +36,7 @@ function CharacterDetails(props: CharacterDetailsProps) {
             <ImageIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='name' secondary={props.character.name} />
+        <ListItemText primary='name' secondary={character.name} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
@@ -38,7 +44,7 @@ function CharacterDetails(props: CharacterDetailsProps) {
             <WorkIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='status' secondary={props.character.status} />
+        <ListItemText primary='status' secondary={character.status} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
@@ -46,7 +52,7 @@ function CharacterDetails(props: CharacterDetailsProps) {
             <BeachAccessIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='species' secondary={props.character.species} />
+        <ListItemText primary='species' secondary={character.species} />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
@@ -54,7 +60,7 @@ function CharacterDetails(props: CharacterDetailsProps) {
             <BeachAccessIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary='gender' secondary={props.character.gender} />
+        <ListItemText primary='gender' secondary={character.gender} />
       </ListItem>
     </List>
   );
