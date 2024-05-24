@@ -14,6 +14,7 @@ import AbcIcon from '@mui/icons-material/Abc';
 import AdbIcon from '@mui/icons-material/Adb';
 import ExposureIcon from '@mui/icons-material/Exposure';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CardMedia from '@mui/material/CardMedia';
 
 
 
@@ -37,6 +38,7 @@ function CharacterDetails() {
   }
 
   return (
+    <>
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
       <ListItem>
         <ListItemAvatar>
@@ -79,6 +81,12 @@ function CharacterDetails() {
         <ListItemText primary='Location' secondary={character.location.name} />
       </ListItem>
     </List>
+    <CardMedia
+    sx={{ height: 300, width: 300, borderRadius: '50%', position: 'absolute', top: '50%', left: '50%', transform: 'translate(10%, -50%)' }}
+    image={character.image ?? "https://robohash.org/38.180.2.10.png"}
+    title={character.name}
+    />
+    </>
   );
 }
 
