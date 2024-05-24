@@ -24,8 +24,6 @@ function CardItem(props: Character) {
 
   const navigate = useNavigate();
   const clickDetails = () => {
-    console.log({ character: props });
-    console.log(`навигация /character/${props.id}`);
     navigate(`/character/${props.id}`);
     };
 
@@ -54,9 +52,11 @@ function CardItem(props: Character) {
         image={props.image ?? "https://robohash.org/38.180.2.10.png"}
         title="title"
       />
-      <CardActions>
-        <Button size="small" onClick={clickDetails}>Подробнее</Button>
-      </CardActions>
+      {user && (
+        <CardActions>
+          <Button size="small" onClick={clickDetails}>Подробнее</Button>
+        </CardActions>
+      )}
     </Card>
   );
 }
