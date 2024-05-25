@@ -1,6 +1,9 @@
 import { Box, Card, CardContent, Skeleton } from '@mui/material'
+import { useTheme } from '../../context/ThemeContext'
 
 const CardSkeleton = () => {
+	const { theme } = useTheme()
+
 	return (
 		<Card
 			sx={{
@@ -9,6 +12,8 @@ const CardSkeleton = () => {
 				position: 'relative',
 				display: 'flex',
 				flexDirection: 'column',
+				backgroundColor: theme === 'dark' ? '#4d4f54' : '#fefefe',
+				color: theme === 'dark' ? '#fefefe' : '#101010',
 			}}
 		>
 			<Skeleton variant='rectangular' width='100%' height={175} />
