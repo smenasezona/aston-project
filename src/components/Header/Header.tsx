@@ -1,15 +1,18 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import { AppBar, Box, Button, Container, Menu, Toolbar, Typography } from '@mui/material'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { logout } from '../../store/actions/authActions'
 import { AppDispatch } from '../../store/store'
+import { QueryParams } from '../../types/queryTypes'
+import useAPI from '../../utils/hooks/useAPI'
 import useHeaderState from '../../utils/hooks/useHeaderState'
 import AppModal from '../AppModal/AppModal'
+import FilterMenu, { Filters } from '../FilterMenu/FilterMenu'
 import NavMenu from '../NavMenu/NavMenu'
 import SearchBar from '../SearchBar/SearchBar'
 import SelectorMUI from '../ui/Selector/SelectorMUI'
@@ -38,6 +41,10 @@ function Header() {
 	const isAuth = useSelector((state: any) => state.auth.isAuth)
 	const user = useSelector((state: any) => state.auth.user)
 
+	const { theme, toggleTheme } = useTheme()
+
+	const { updateQuery, search } = useAPI()
+
 	const handleExit = () => {
 		dispatch(logout())
 	}
@@ -48,7 +55,24 @@ function Header() {
 		}
 	}, [isAuth])
 
-	const { theme, toggleTheme } = useTheme()
+	const handleFilterChange = useCallback(
+		(filters: Filters) => {
+			const queryParams: Partial<QueryParams> = {}
+
+			if (filters.name) queryParams.name = filters.name
+			if (filters.species) queryParams.species = filters.species
+
+			const status = (Object.keys(filters.status) as (keyof Filters['status'])[]).find(key => filters.status[key])
+			const gender = (Object.keys(filters.gender) as (keyof Filters['gender'])[]).find(key => filters.gender[key])
+
+			if (status) queryParams.status = status
+			if (gender) queryParams.gender = gender
+
+			updateQuery(queryParams)
+			search(queryParams)
+		},
+		[updateQuery, search],
+	)
 
 	return (
 		<AppBar position='static'>
@@ -147,8 +171,9 @@ function Header() {
 							</Link>
 						</Box>
 					)}
-					<Box sx={{ marginRight: '2rem' }}>
-						<SearchBar />
+					<SearchBar />
+					<Box sx={{ display: 'flex' }}>
+						<FilterMenu onFilterChange={handleFilterChange} />
 						<Menu
 							sx={{ mt: '45px' }}
 							id='menu-appbar'
