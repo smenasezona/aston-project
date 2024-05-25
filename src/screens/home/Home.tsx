@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { returnInitialQuery } from '../../api/api'
@@ -13,11 +13,13 @@ function Home() {
 	const location = useLocation()
 	const API = useAPI()
 	const dispatch = useDispatch<AppDispatch>()
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const updatedParams = { ...returnInitialQuery(location.search) }
 		API.updateQuery(filterParams(updatedParams))
 		dispatch(setCharacters(filterParams(updatedParams)))
+		setLoading(false)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location])
 
@@ -29,7 +31,7 @@ function Home() {
 
 	return (
 		<>
-			<GridContainer characters={API.charactersList} />
+			<GridContainer loading={loading} characters={API.charactersList} />
 			<CustomPagination
 				pageCount={API.pagesCount}
 				onPageChange={switchSearchPage}

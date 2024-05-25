@@ -3,13 +3,15 @@ import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import CustomPagination from '../../components/CustomPagination/CustomPagination'
 import GridContainer from '../../components/GridContainer/GridContainer'
+import { RootState } from '../../store/store'
 
 function Favorite() {
 	const [filteredArr, setFilteredArr] = useState<any[]>([])
-	const postList = useSelector((state: any) => state.favorite.postList)
-	const idList = useSelector((state: any) => state.favorite.idList)
+	const postList = useSelector((state: RootState) => state.favorite.postList)
+	const idList = useSelector((state: RootState) => state.favorite.idList)
 	const location = useLocation()
 	const navigate = useNavigate()
+	const [loading, setLoading] = useState(true)
 
 	const query = new URLSearchParams(location.search)
 	const pageQuery = query.get('page')
@@ -22,9 +24,10 @@ function Favorite() {
 		setMaxPage(Math.ceil(idList.length / 20))
 		setFilteredArr([])
 		for (let id of idList) {
-			let match = postList.find((item: any) => item.id == id)
+			let match = postList.find((item: any) => item.id === id)
 			if (match) {
 				setFilteredArr(prev => [...prev, match])
+				setLoading(false)
 			}
 		}
 	}, [idList, postList])
@@ -36,7 +39,7 @@ function Favorite() {
 
 	return (
 		<>
-			<GridContainer characters={filteredArr.slice(page * 20 - 20, page * 20)} />
+			<GridContainer loading={loading} characters={filteredArr.slice(page * 20 - 20, page * 20)} />
 			{maxPage > 1 && <CustomPagination pageCount={maxPage} currentPage={page} onPageChange={handlePageChange} />}
 		</>
 	)
