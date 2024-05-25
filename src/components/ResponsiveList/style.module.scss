@@ -1,0 +1,27 @@
+$primaryFont: black;
+$primaryDetailsBG: rgb(240, 239, 239);
+
+$primaryFontDarkTheme: white;
+$primaryDetailsBGDarkTheme: rgb(44, 44, 44);
+$primarySummaryBGDarkTheme: darken($primaryDetailsBGDarkTheme, 10);
+
+:export {
+  primaryFontDarkTheme: $primaryFontDarkTheme;
+  primaryDetailsBGDarkTheme: $primaryDetailsBGDarkTheme;
+  primarySummaryBGDarkTheme: $primarySummaryBGDarkTheme;
+}
+
+.expandIconWrapper {
+  width: 1.5rem;
+}
+
+.details {
+  background-color: $primaryDetailsBG;
+  color: inherit;
+}
+
+.content {
+  width: calc(100% - 1.5rem);
+  justify-content: space-between;
+  margin: 0;
+}
