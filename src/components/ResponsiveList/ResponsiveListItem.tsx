@@ -4,6 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from './style.module.scss'
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 type SelfProps = {
   queryParams: Record<string,string>,
@@ -11,6 +12,7 @@ type SelfProps = {
 }
 
 function ResponsiveListItem(props: SelfProps) {
+  const {t} = useLanguage()
   const navigate = useNavigate()
   const dateFromString = new Date(props.date)
   const displayedDate = dateFromString.toLocaleTimeString('ru', {
@@ -39,7 +41,7 @@ function ResponsiveListItem(props: SelfProps) {
               textWrap: 'nowrap', pl: '0.5rem',
               borderLeft: '1px solid'
             }}
-          >at: {displayedDate}</Typography>
+          >{t('historyItemTime')}: {displayedDate}</Typography>
           <IconButton
             sx={{ color: 'black', '.dark &': { color: 'white' } }} classes={{ root: styles.button }}
             onClick={showMatches}
@@ -52,7 +54,7 @@ function ResponsiveListItem(props: SelfProps) {
         sx={{ '.dark &': { bgcolor: styles.primaryDetailsBGDarkTheme } }}
         classes={{ root: styles.details }}
       >
-        <Typography variant='h6' sx={{ textAlign: 'center' }}>Параметры запроса</Typography>
+        <Typography variant='h6' sx={{ textAlign: 'center' }}>{t('historyItemParametersHeader')}</Typography>
         {Object.entries(props.queryParams)
           .map(([qKey, qValue]) =>
             <Typography

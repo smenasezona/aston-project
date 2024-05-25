@@ -36,6 +36,10 @@ const translations: Translations = {
 		usernameexists: '🤨 Такой username уже существует',
 		userandemailexists: '🤨 Такой username и email уже существуют',
 		favoriteAdd: '🤨 Для добавления в избранное войдите в аккаунт',
+		historyHeader: 'История запросов',
+		historyEmptyText: 'История отсутствует',
+		historyItemParametersHeader: 'Параметры запроса',
+		historyItemTime: 'дата',
 	},
 	eng: {
 		favorite: 'Favorites',
@@ -65,6 +69,10 @@ const translations: Translations = {
 		usernameexists: '🤨 This username already exists',
 		userandemailexists: '🤨 This username and email already exists',
 		favoriteAdd: '🤨 To add to favorites, log in to your account',
+		historyHeader:'Search history',
+		historyEmptyText: 'History is empty',
+		historyItemParametersHeader: 'Query parameters',
+		historyItemTime: 'at',
 	},
 }
 
