@@ -1,17 +1,24 @@
 import { Stack, Typography } from "@mui/material"
 import ResponsiveListItem from "../../components/ResponsiveList/ResponsiveListItem"
+import { useSelector } from "react-redux"
+import { RootState } from "../../store/store"
+import { HistoryState } from "../../types/historyTypes"
 
 function History() {
+  const history = useSelector<RootState>((state)=>state.history) as HistoryState
+
 
   return (
-      <Stack maxWidth={"1200px"} alignItems={"center"} py={1} spacing={3} width={'80%'} mx={'auto'}>
+      <Stack flexGrow={1} maxWidth={"1200px"} alignItems={"center"} py={1} spacing={3} width={'80%'} mx={'auto'}>
         <Typography variant={'h3'}>Search History</Typography>
-        <Stack width={"100%"} spacing={1}>
-          <ResponsiveListItem queryParams={{ name: "Rick Sanchez", gender: 'Male', species: 'Human', page: "1", status: 'Unknown' }} date={Date.now()}></ResponsiveListItem>
-
-          <ResponsiveListItem queryParams={{ name: "Alexander", gender: 'Male', species: 'Human', page: "99", status: 'Alive' }} date={Date.now()}></ResponsiveListItem>
-        
-          <ResponsiveListItem queryParams={{ name: "Alexsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssander", gender: 'Male', species: 'Human', page: "99", status: 'Alive' }} date={Date.now()}></ResponsiveListItem>
+        <Stack flexGrow={1} width={"100%"} spacing={1}>
+          {history.queryList.length ? [...history.queryList].reverse().map(({params,date})=>{
+            return (
+              <ResponsiveListItem key={date} queryParams={params} date={date}/>
+            )
+          }) :
+          <Typography flexGrow={1} sx={{color:'rgba(0,0,0,0.5)',display:'flex', justifyContent:"center",alignItems:'center'}} variant={"h4"}>History is empty</Typography>
+        }      
         </Stack>
       </Stack>
 
