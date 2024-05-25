@@ -1,4 +1,6 @@
 import { Dispatch } from 'redux'
+import { fetchCharacters } from '../../api/api'
+import { fetchSuggestions } from '../../api/characterSuggestion'
 import {
 	Character,
 	QueryParams,
@@ -9,8 +11,6 @@ import {
 	Suggestion,
 } from '../../types/queryTypes'
 import { SET_CHARACTERS, SET_PAGES, SET_SEARCH_PARAMS, SET_SUGGESTIONS } from './actionsTypes'
-import { fetchCharacters } from '../../api/api'
-import { fetchSuggestions } from '../../api/characterSuggestion'
 
 export const setSearchParamsAction = (query: Partial<QueryParams>): SetSearchParams => ({
 	type: SET_SEARCH_PARAMS,

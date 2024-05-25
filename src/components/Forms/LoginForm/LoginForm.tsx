@@ -8,7 +8,7 @@ import ButtonMUI from '../../ui/Button/ButtonMUI'
 import InputMUI from '../../ui/Input/InputMUI'
 import { useLanguage } from '../../../i18n/LanguageContext'
 
-interface FormData {
+type FormData = {
 	username: string
 	password: string
 }

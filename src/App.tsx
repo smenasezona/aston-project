@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Header from './components/Header/Header'
-import Favorite from './screens/favorite/Favorite'
-import Home from './screens/home/Home'
-import History from './screens/history/History'
-import PrivateRoute from './components/PrivateRoute/PrivateRoute'
-import withAuth from './utils/hoc/withAuth'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from './store/store'
+import { Route, Routes } from 'react-router-dom'
 import { fetchCharactersById } from './api/api'
-import { fillingIdList, updatePostList } from './store/actions/favoriteActions'
-import { useTheme } from './context/ThemeContext'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
+import Header from './components/Header/Header'
+import PrivateRoute from './components/PrivateRoute/PrivateRoute'
+import { useTheme } from './context/ThemeContext'
 import NotFoundPage from './screens/NotFoundPage/NotFoundPage'
+import Favorite from './screens/favorite/Favorite'
+import History from './screens/history/History'
+import Home from './screens/home/Home'
+import { fillingIdList, updatePostList } from './store/actions/favoriteActions'
+import { AppDispatch } from './store/store'
+import withAuth from './utils/hoc/withAuth'
 
 const AppContent: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
@@ -23,7 +23,7 @@ const AppContent: React.FC = () => {
 
 	useEffect(() => {
 		dispatch(fillingIdList())
-	}, [user])
+	}, [user, dispatch])
 
 	useEffect(() => {
 		const fetchData = async () => {

@@ -1,3 +1,4 @@
+import { Tune } from '@mui/icons-material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
 	Accordion,
@@ -8,10 +9,11 @@ import {
 	Checkbox,
 	FormControlLabel,
 	FormGroup,
-	TextField,
 	Typography,
+	styled,
 } from '@mui/material'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, memo, useCallback, useState } from 'react'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 export interface Filters {
 	name: string
@@ -30,7 +32,7 @@ export interface Filters {
 	}
 }
 
-interface FilterMenuProps {
+type FilterMenuProps = {
 	onFilterChange: (filters: Filters) => void
 }
 
@@ -53,8 +55,10 @@ const FilterMenu: React.FC<FilterMenuProps> = ({ onFilterChange }) => {
 	})
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [expanded, setExpanded] = useState<string | false>(false)
+	const { t } = useLanguage()
 
-	const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	const handleChange = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value, type } = event.target
 		const checked = type === 'checkbox' ? (event.target as HTMLInputElement).checked : undefined
 
@@ -78,82 +82,98 @@ const FilterMenu: React.FC<FilterMenuProps> = ({ onFilterChange }) => {
 			}
 			return prevFilters
 		})
-	}
+	}, [])
 
-	const handleApplyFilters = () => {
+	const handleApplyFilters = useCallback(() => {
 		onFilterChange(filters)
-	}
+	}, [filters, onFilterChange])
+
+	const handleAccordionChange = useCallback(
+		(panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+			setExpanded(isExpanded ? panel : false)
+		},
+		[],
+	)
+
+	const FilterContainer = styled(Box)(({ theme }) => ({
+		position: 'absolute',
+		top: '100%',
+		right: 5,
+		width: '19rem',
+		backgroundColor: '#fafafa',
+		zIndex: 1,
+		boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.4)',
+		borderRadius: '8px',
+		padding: '20px',
+		marginTop: '8px',
+	}))
 
 	return (
-		<Box sx={{ p: 3 }}>
-			<Button variant='contained' color='primary' onClick={() => setIsMenuOpen(prev => !prev)}>
-				{isMenuOpen ? 'Скрыть' : 'Фильтры'}
+		<Box>
+			<Button onClick={() => setIsMenuOpen(prev => !prev)}>
+				<Tune sx={{ color: 'white', scale: '1.2' }} />
 			</Button>
 			{isMenuOpen && (
-				<Box mt={2}>
-					<TextField
-						label='Species'
-						name='species'
-						value={filters.species}
-						onChange={handleChange}
-						fullWidth
-						margin='normal'
-					/>
-					<Accordion>
+				<FilterContainer>
+					<Accordion
+						expanded={expanded === 'panel1'}
+						onChange={handleAccordionChange('panel1')}
+						sx={{ marginBottom: '0.6rem' }}
+					>
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-							<Typography>Status</Typography>
+							<Typography>{t('status')}</Typography>
 						</AccordionSummary>
 						<AccordionDetails>
 							<FormGroup>
 								<FormControlLabel
 									control={<Checkbox checked={filters.status.alive} onChange={handleChange} name='status.alive' />}
-									label='Alive'
+									label={t('alive')}
 								/>
 								<FormControlLabel
 									control={<Checkbox checked={filters.status.dead} onChange={handleChange} name='status.dead' />}
-									label='Dead'
+									label={t('dead')}
 								/>
 								<FormControlLabel
 									control={<Checkbox checked={filters.status.unknown} onChange={handleChange} name='status.unknown' />}
-									label='Unknown'
+									label={t('unknown')}
 								/>
 							</FormGroup>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion>
+					<Accordion expanded={expanded === 'panel2'} onChange={handleAccordionChange('panel2')}>
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-							<Typography>Gender</Typography>
+							<Typography>{t('gender')}</Typography>
 						</AccordionSummary>
 						<AccordionDetails>
 							<FormGroup>
 								<FormControlLabel
 									control={<Checkbox checked={filters.gender.female} onChange={handleChange} name='gender.female' />}
-									label='Female'
+									label={t('female')}
 								/>
 								<FormControlLabel
 									control={<Checkbox checked={filters.gender.male} onChange={handleChange} name='gender.male' />}
-									label='Male'
+									label={t('male')}
 								/>
 								<FormControlLabel
 									control={
 										<Checkbox checked={filters.gender.genderless} onChange={handleChange} name='gender.genderless' />
 									}
-									label='Genderless'
+									label={t('genderless')}
 								/>
 								<FormControlLabel
 									control={<Checkbox checked={filters.gender.unknown} onChange={handleChange} name='gender.unknown' />}
-									label='Unknown'
+									label={t('unknown')}
 								/>
 							</FormGroup>
 						</AccordionDetails>
 					</Accordion>
-					<Button variant='contained' color='primary' onClick={handleApplyFilters} sx={{ mt: 2 }}>
-						Apply Filters
+					<Button variant='text' size='medium' color='primary' onClick={handleApplyFilters} sx={{ mt: 2 }}>
+						{t('applyFilters')}
 					</Button>
-				</Box>
+				</FilterContainer>
 			)}
 		</Box>
 	)
 }
 
-export default FilterMenu
+export default memo(FilterMenu)

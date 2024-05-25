@@ -1,39 +1,33 @@
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import { useLanguage } from '../../../i18n/LanguageContext';
-import { Box, NativeSelect } from '@mui/material';
+import LanguageIcon from '@mui/icons-material/Language'
+import { Box, IconButton, Menu, MenuItem } from '@mui/material'
+import { MouseEvent, useState } from 'react'
+import { useLanguage } from '../../../i18n/LanguageContext'
+import { Translations } from '../../../i18n/translation'
 
-export default function SelectorMUI() {
-  const {language,switchLanguage,t} = useLanguage();
+export default function LanguageSelector() {
+	const { language, switchLanguage } = useLanguage()
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value !== 'ru' && event.target.value !== 'eng'){
-        throw new Error('Неверное значение')
-    }
-    switchLanguage(event.target.value);
-  };
+	const handleClick = (event: MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget)
+	}
 
-  return (
-    <Box sx={{ minWidth: 120}}>
-      <FormControl fullWidth>
-        <InputLabel variant="standard" htmlFor="uncontrolled-native" style={{color:'#fff'}}>
-          {language == 'ru' ? 'Язык' : 'Language'}
-        </InputLabel>
-        <NativeSelect
-          style={{color:'#fff'}}
-          defaultValue={language ? language : 'ru'}
-          onChange={handleChange}
-          inputProps={{
-            name: 'language',
-            id: 'uncontrolled-native',
-          }}
-        >
-          <option style={{color:'#000'}} value={'ru'}>Русский</option>
-          <option style={{color:'#000'}} value={'eng'}>English</option>
-        </NativeSelect>
-      </FormControl>
-    </Box>
-  );
+	const handleClose = (lang?: keyof Translations) => {
+		setAnchorEl(null)
+		if (lang && lang !== language) {
+			switchLanguage(lang)
+		}
+	}
+
+	return (
+		<Box>
+			<IconButton onClick={handleClick} style={{ color: '#fff' }}>
+				<LanguageIcon sx={{ color: 'white', scale: '1.2' }} />
+			</IconButton>
+			<Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleClose()}>
+				<MenuItem onClick={() => handleClose('ru')}>Русский</MenuItem>
+				<MenuItem onClick={() => handleClose('eng')}>English</MenuItem>
+			</Menu>
+		</Box>
+	)
 }
