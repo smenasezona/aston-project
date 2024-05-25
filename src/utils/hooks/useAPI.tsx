@@ -5,6 +5,7 @@ import { setSearchParamsAction, setSuggestions } from '../../store/actions/searc
 import { SearchState } from '../../store/reducers/searchReducers'
 import { AppDispatch, RootState } from '../../store/store'
 import { QueryParams } from '../../types/queryTypes'
+import { addSearchQuery } from '../../store/actions/historyActions'
 
 export default function useAPI() {
 	const dispatch = useDispatch<AppDispatch>()
@@ -18,6 +19,7 @@ export default function useAPI() {
 		pagesCount: search.pages,
 		search(params = filterParams(search.queryParams)) {
 			const navigateParams = new URLSearchParams(params)
+			dispatch(addSearchQuery(params))
 			navigate(`/?${navigateParams}`)
 		},
 		updateQuery(query: Partial<QueryParams>) {
