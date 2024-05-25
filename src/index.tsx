@@ -7,6 +7,7 @@ import store from "./store/store";
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './i18n/LanguageContext';
+import './adaptive-fonts.scss';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
