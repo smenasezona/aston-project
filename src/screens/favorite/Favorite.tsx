@@ -21,15 +21,11 @@ function Favorite() {
 	const [maxPage, setMaxPage] = useState<number>(Math.ceil(idList.length / 20))
 
 	useEffect(() => {
+		setLoading(true)
 		setMaxPage(Math.ceil(idList.length / 20))
-		setFilteredArr([])
-		for (let id of idList) {
-			let match = postList.find((item: any) => item.id === id)
-			if (match) {
-				setFilteredArr(prev => [...prev, match])
-				setLoading(false)
-			}
-		}
+		const filtered = idList.map(id => postList.find((item: any) => item.id === id)).filter(Boolean)
+		setFilteredArr(filtered)
+		setLoading(false)
 	}, [idList, postList])
 
 	const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {

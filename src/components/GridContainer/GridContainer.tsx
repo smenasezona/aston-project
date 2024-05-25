@@ -15,7 +15,7 @@ function GridContainer(props: GridContainerProps) {
 			<Grid item xs={12}>
 				<Grid container justifyContent='start' spacing={8}>
 					{props.loading
-						? Array.from(new Array(10)).map((_, index) => (
+						? Array.from(new Array(props.characters.length || 10)).map((_, index) => (
 								<Grid
 									key={index}
 									item
