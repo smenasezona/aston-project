@@ -9,19 +9,21 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTheme } from '../../context/ThemeContext'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { SHOW_SNACKBAR } from '../../store/actions/actionsTypes'
 import { addToListAction, deleteFromListAction } from '../../store/actions/favoriteActions'
-import { AppDispatch } from '../../store/store'
+import { AppDispatch, RootState } from '../../store/store'
 import { Character } from '../../types/queryTypes'
 
 function CardItem(props: Character) {
 	const dispatch = useDispatch<AppDispatch>()
 
-	const idList = useSelector((state: any) => state.favorite.idList)
-	const user = useSelector((state: any) => state.auth.user)
+	const idList = useSelector((state: RootState) => state.favorite.idList)
+	const user = useSelector((state: RootState) => state.auth.user)
 
 	const { t } = useLanguage()
+	const { theme } = useTheme()
 
 	const handleAddToFavorite = () => {
 		if (user) idList.includes(props.id) ? dispatch(deleteFromListAction(props.id)) : dispatch(addToListAction(props.id))
@@ -50,7 +52,17 @@ function CardItem(props: Character) {
 	}))
 
 	return (
-		<Card sx={{ width: '13.8rem', height: '20.5rem', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+		<Card
+			sx={{
+				width: '13.8rem',
+				height: '20.5rem',
+				position: 'relative',
+				display: 'flex',
+				flexDirection: 'column',
+				backgroundColor: theme === 'dark' ? '#4d4f54' : '#fefefe',
+				color: theme === 'dark' ? '#fefefe' : '#101010',
+			}}
+		>
 			<FavoriteButton onClick={handleAddToFavorite}>
 				{idList.includes(props.id) ? (
 					<FavoriteIcon style={{ color: 'red' }} />
@@ -66,11 +78,9 @@ function CardItem(props: Character) {
 					variant='h5'
 					component='div'
 				>
-					{/* Name: <br /> */}
 					{props.name ?? 'undefined'}
 				</Typography>
 				<Typography sx={{ marginBottom: '.5rem', fontSize: '1rem' }} gutterBottom variant='h5' component='div'>
-					{/* Name: <br /> */}
 					{props.species ?? 'undefined'}
 				</Typography>
 			</CardContent>

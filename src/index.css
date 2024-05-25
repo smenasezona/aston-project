@@ -1,36 +1,36 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-a{
-    text-decoration: none;
+a {
+	text-decoration: none;
 }
 
 .app.dark {
-    background-color: rgb(84, 84, 100);
-    color: #fafafa;
+	background-color: #272b33;
+	color: #fafafa;
 }
 
 .app.dark a {
-    color: #fafafa;
+	color: #fafafa;
 }
 
 .app.light {
-    background-color: #eeedf3;
+	background-color: #eeedf3;
 }
 
-.app.light header{
-    background-color: #1399a7;
+.app.light header {
+	background-color: #1399a7;
 }
 
-.app.dark header{
-    background-color: #000000;
+.app.dark header {
+	background-color: #000000;
 }
 
-.app{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }

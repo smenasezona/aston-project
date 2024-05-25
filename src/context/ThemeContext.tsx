@@ -1,17 +1,19 @@
 import Cookies from 'js-cookie'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
-type ThemeContextProps = {
+type Theme = 'light' | 'dark'
+
+interface ThemeContextProps {
 	toggleTheme: () => void
-	theme: string
+	theme: Theme
 }
 
 export const ThemeContext = createContext<ThemeContextProps | undefined>(undefined)
 
-export const useTheme = () => {
+export const useTheme = (): ThemeContextProps => {
 	const context = useContext(ThemeContext)
 	if (!context) {
-		throw new Error('error')
+		throw new Error('useTheme must be used within a ThemeProvider')
 	}
 	return context
 }
@@ -21,8 +23,8 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-	const savedTheme = Cookies.get('theme') || 'light'
-	const [theme, setTheme] = useState(savedTheme)
+	const savedTheme = (Cookies.get('theme') as Theme) || 'light'
+	const [theme, setTheme] = useState<Theme>(savedTheme)
 
 	useEffect(() => {
 		Cookies.set('theme', theme, { expires: 365, sameSite: 'None', secure: true })
