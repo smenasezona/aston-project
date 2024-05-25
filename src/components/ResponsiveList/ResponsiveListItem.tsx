@@ -3,6 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, IconButton } from '
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from './style.module.scss'
 import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
 
 type SelfProps = {
   queryParams: Record<string,string>,
@@ -10,6 +11,7 @@ type SelfProps = {
 }
 
 function ResponsiveListItem(props: SelfProps) {
+  const navigate = useNavigate()
   const dateFromString = new Date(props.date)
   const displayedDate = dateFromString.toLocaleTimeString('ru', {
     year: "numeric",
@@ -17,6 +19,10 @@ function ResponsiveListItem(props: SelfProps) {
     day: "numeric",
   })
   const stringifiedParams = Object.entries(props.queryParams).map(([key, value]) => `${key}: ${value}`).join(', ')
+
+  const showMatches = ()=> {
+			navigate(`/?${new URLSearchParams(props.queryParams)}`)
+  }
 
 
   return (
@@ -36,9 +42,7 @@ function ResponsiveListItem(props: SelfProps) {
           >at: {displayedDate}</Typography>
           <IconButton
             sx={{ color: 'black', '.dark &': { color: 'white' } }} classes={{ root: styles.button }}
-            onClick={(event) => {
-              event.stopPropagation()
-            }}
+            onClick={showMatches}
           >
             <SearchIcon color='inherit' />
           </IconButton>
