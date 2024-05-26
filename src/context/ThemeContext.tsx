@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react'
 
 type Theme = 'light' | 'dark'
 
@@ -34,5 +34,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 		setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'))
 	}
 
-	return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>
+	const value = useMemo(() => ({ theme, toggleTheme }), [theme])
+
+	return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
