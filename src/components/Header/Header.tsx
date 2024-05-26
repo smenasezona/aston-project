@@ -46,10 +46,10 @@ function Header() {
 	}, [dispatch])
 
 	useEffect(() => {
-		if (isAuth) {
+		if (isAuth && open.isOpen) {
 			setOpen({ ...open, isOpen: false })
 		}
-	}, [isAuth])
+	}, [isAuth, open, setOpen])
 
 	return (
 		<AppBar position='static' sx={styles.appBar}>
