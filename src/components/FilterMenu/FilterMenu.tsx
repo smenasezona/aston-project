@@ -10,31 +10,11 @@ import {
 	FormControlLabel,
 	FormGroup,
 	Typography,
-	styled,
 } from '@mui/material'
 import React, { ChangeEvent, memo, useCallback, useState } from 'react'
 import { useLanguage } from '../../i18n/LanguageContext'
-
-export interface Filters {
-	name: string
-	status: {
-		alive: boolean
-		dead: boolean
-		unknown: boolean
-	}
-	species: string
-	type: string
-	gender: {
-		female: boolean
-		male: boolean
-		genderless: boolean
-		unknown: boolean
-	}
-}
-
-type FilterMenuProps = {
-	onFilterChange: (filters: Filters) => void
-}
+import { FilterContainer } from '../../styles/filterStyles'
+import { FilterMenuProps, Filters } from '../../types/filtersTypes'
 
 const FilterMenu: React.FC<FilterMenuProps> = ({ onFilterChange }) => {
 	const [filters, setFilters] = useState<Filters>({
@@ -94,19 +74,6 @@ const FilterMenu: React.FC<FilterMenuProps> = ({ onFilterChange }) => {
 		},
 		[],
 	)
-
-	const FilterContainer = styled(Box)(({ theme }) => ({
-		position: 'absolute',
-		top: '100%',
-		right: 5,
-		width: '19rem',
-		backgroundColor: '#fafafa',
-		zIndex: 1,
-		boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.4)',
-		borderRadius: '8px',
-		padding: '20px',
-		marginTop: '8px',
-	}))
 
 	return (
 		<Box>

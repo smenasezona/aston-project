@@ -7,19 +7,17 @@ import { Link } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { logout } from '../../store/actions/authActions'
-import { AppDispatch } from '../../store/store'
-import { QueryParams } from '../../types/queryTypes'
-import useAPI from '../../utils/hooks/useAPI'
+import { AppDispatch, RootState } from '../../store/store'
+import { styles } from '../../styles/headerStyles'
+import useFilterChange from '../../utils/hooks/useFilterChange'
 import useHeaderState from '../../utils/hooks/useHeaderState'
 import AppModal from '../AppModal/AppModal'
-import FilterMenu, { Filters } from '../FilterMenu/FilterMenu'
+import FilterMenu from '../FilterMenu/FilterMenu'
 import NavMenu from '../NavMenu/NavMenu'
 import SearchBar from '../SearchBar/SearchBar'
 import SelectorMUI from '../ui/Selector/SelectorMUI'
 
 const pages = ['login', 'reg']
-
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
 function Header() {
 	const {
@@ -37,61 +35,28 @@ function Header() {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const modalIsOpen = useSelector((state: any) => state.modal.modalIsOpen)
-	const isAuth = useSelector((state: any) => state.auth.isAuth)
-	const user = useSelector((state: any) => state.auth.user)
-
+	const modalIsOpen = useSelector((state: RootState) => state.modal.modalIsOpen)
+	const isAuth = useSelector((state: RootState) => state.auth.isAuth)
+	const user = useSelector((state: RootState) => state.auth.user)
 	const { theme, toggleTheme } = useTheme()
+	const handleFilterChange = useFilterChange()
 
-	const { updateQuery, search } = useAPI()
-
-	const handleExit = () => {
+	const handleExit = useCallback(() => {
 		dispatch(logout())
-	}
+	}, [dispatch])
 
 	useEffect(() => {
-		if (isAuth) {
+		if (isAuth && open.isOpen) {
 			setOpen({ ...open, isOpen: false })
 		}
-	}, [isAuth])
-
-	const handleFilterChange = useCallback(
-		(filters: Filters) => {
-			const queryParams: Partial<QueryParams> = {}
-
-			if (filters.name) queryParams.name = filters.name
-			if (filters.species) queryParams.species = filters.species
-
-			const status = (Object.keys(filters.status) as (keyof Filters['status'])[]).find(key => filters.status[key])
-			const gender = (Object.keys(filters.gender) as (keyof Filters['gender'])[]).find(key => filters.gender[key])
-
-			if (status) queryParams.status = status
-			if (gender) queryParams.gender = gender
-
-			updateQuery(queryParams)
-			search(queryParams)
-		},
-		[updateQuery, search],
-	)
+	}, [isAuth, open, setOpen])
 
 	return (
-		<AppBar position='static'>
+		<AppBar position='static' sx={styles.appBar}>
 			<Container maxWidth={false}>
 				<Toolbar disableGutters>
 					<Link to={'/'}>
-						<Typography
-							variant='h6'
-							noWrap
-							sx={{
-								mr: 2,
-								display: { xs: 'none', md: 'flex' },
-								fontFamily: 'Inter',
-								fontWeight: 500,
-								letterSpacing: '.1rem',
-								color: '#fafafa',
-								textDecoration: 'none',
-							}}
-						>
+						<Typography variant='h6' noWrap sx={styles.linkTypography}>
 							R&M Wiki
 						</Typography>
 					</Link>
@@ -104,26 +69,13 @@ function Header() {
 						handleClick={handleClick}
 						isAuth={isAuth}
 						handleExit={handleExit}
-						favorite={t('favorite')}
-						history={t('history')}
-						exit={t('exit')}
+						favorite={'favorite'}
+						history={'history'}
+						exit={'exit'}
 					/>
 
 					<Link to={'/'}>
-						<Typography
-							variant='h5'
-							noWrap
-							sx={{
-								mr: 2,
-								display: { xs: 'flex', md: 'none' },
-								flexGrow: 1,
-								fontFamily: 'Arial',
-								fontWeight: 500,
-								letterSpacing: '.1rem',
-								color: '#fafafa',
-								textDecoration: 'none',
-							}}
-						>
+						<Typography variant='h5' noWrap sx={styles.linkTypographySmall}>
 							R&M Wiki
 						</Typography>
 					</Link>
@@ -131,7 +83,7 @@ function Header() {
 					{!isAuth ? (
 						<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 							{pages.map(page => (
-								<Button key={page} onClick={() => handleClick(page)} sx={{ my: 2, color: 'white', display: 'block' }}>
+								<Button key={page} onClick={() => handleClick(page)} sx={styles.button}>
 									{t(page)}
 								</Button>
 							))}
@@ -139,38 +91,10 @@ function Header() {
 					) : (
 						<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 							<Link to={'/favorite'}>
-								<Button
-									sx={{
-										my: 1.35,
-										display: { xs: 'none', md: 'flex' },
-										fontFamily: 'Inter',
-										fontWeight: 500,
-										color: '#fafafa',
-										textDecoration: 'none',
-										'&:hover': {
-											color: '#e3dede',
-										},
-									}}
-								>
-									{t('favorite')}
-								</Button>
+								<Button sx={styles.button}>{t('favorite')}</Button>
 							</Link>
 							<Link to={'/history'}>
-								<Button
-									sx={{
-										my: 1.35,
-										display: { xs: 'none', md: 'flex' },
-										fontFamily: 'Inter',
-										fontWeight: 500,
-										color: '#fafafa',
-										textDecoration: 'none',
-										'&:hover': {
-											color: '#e3dede',
-										},
-									}}
-								>
-									{t('history')}
-								</Button>
+								<Button sx={styles.button}>{t('history')}</Button>
 							</Link>
 						</Box>
 					)}
@@ -178,7 +102,7 @@ function Header() {
 					<Box sx={{ display: 'flex' }}>
 						<FilterMenu onFilterChange={handleFilterChange} />
 						<Menu
-							sx={{ mt: '45px' }}
+							sx={styles.menu}
 							id='menu-appbar'
 							anchorEl={anchorElUser}
 							anchorOrigin={{
@@ -196,50 +120,19 @@ function Header() {
 					</Box>
 					<SelectorMUI />
 					<Button onClick={toggleTheme}>
-						{theme === 'dark' ? (
-							<DarkModeIcon sx={{ color: 'white', scale: '1.2' }} />
-						) : (
-							<LightModeIcon sx={{ color: 'white', scale: '1.2' }} />
-						)}
+						{theme === 'dark' ? <DarkModeIcon sx={styles.iconButton} /> : <LightModeIcon sx={styles.iconButton} />}
 					</Button>
 					{isAuth && (
 						<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-							<Button
-								sx={{
-									my: 1.35,
-									display: { xs: 'none', md: 'flex' },
-									fontFamily: 'Inter',
-									fontWeight: 500,
-									color: '#fafafa',
-									textDecoration: 'none',
-									'&:hover': {
-										color: '#e3dede',
-									},
-								}}
-								onClick={handleExit}
-							>
+							<Button sx={styles.button} onClick={handleExit}>
 								{t('exit')}
 							</Button>
-							<Button
-								sx={{
-									my: 1.35,
-									display: { xs: 'none', md: 'flex' },
-									fontFamily: 'Inter',
-									fontWeight: 500,
-									color: '#fafafa',
-									textDecoration: 'none',
-									'&:hover': {
-										color: '#e3dede',
-									},
-								}}
-							>
-								{user}
-							</Button>
+							<Button sx={styles.button}>{user}</Button>
 						</Box>
 					)}
 				</Toolbar>
 			</Container>
-			{modalIsOpen && <AppModal open={open} setOpen={setOpen}></AppModal>}
+			{modalIsOpen && <AppModal open={open} setOpen={setOpen} />}
 		</AppBar>
 	)
 }
