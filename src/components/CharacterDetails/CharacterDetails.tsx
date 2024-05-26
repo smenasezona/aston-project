@@ -52,22 +52,23 @@ function CharacterDetails() {
 		<div
 			style={{
 				display: 'flex',
-				flexDirection: 'column-reverse',
+				flexDirection: 'column',
 				alignItems: 'center',
-				height: '72vh',
+				justifyContent: 'center',
+				height: '100vh',
 			}}
 		>
 			<div>
 				<List
 					sx={{
-						width: '100%',
+						width: '55rem',
 						maxWidth: 360,
 						bgcolor: theme === 'dark' ? '#4d4f54' : '#fefefe',
 						color: theme === 'dark' ? '#fefefe' : '#101010',
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
+						// position: 'absolute',
+						// top: '50%',
+						// left: '50%',
+						// transform: 'translate(-50%, -50%)',
 						borderRadius: '0.3rem',
 						boxShadow: '3px 10px 13px -7px rgba(0,0,0,0.65)',
 					}}
@@ -120,19 +121,19 @@ function CharacterDetails() {
 				</List>
 				<CardMedia
 					sx={{
-						height: 300,
-						width: 300,
+						height: 255,
+						width: 255,
 						borderRadius: '50%',
 						position: 'absolute',
 						top: '50%',
 						left: '50%',
-						transform: 'translate(10%, -50%)',
+						transform: 'translate(25%, -80%)',
 					}}
 					image={character.image ?? 'https://robohash.org/38.180.2.10.png'}
 					title={character.name}
 				/>
 			</div>
-			<ToRootButton />
+				<ToRootButton />
 		</div>
 	)
 }
