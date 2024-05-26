@@ -34,6 +34,9 @@ export interface Character {
 	origin: {
 		name: string
 	}
+	location: {
+		name: string
+	}
 	image: string
 	url: string
 	created: string

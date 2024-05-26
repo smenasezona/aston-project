@@ -9,6 +9,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { SHOW_SNACKBAR } from '../../store/actions/actionsTypes'
@@ -32,6 +33,11 @@ function CardItem(props: Character) {
 				type: SHOW_SNACKBAR,
 				payload: t('favoriteAdd'),
 			})
+	}
+
+	const navigate = useNavigate()
+	const clickDetails = () => {
+		navigate(`/character/${props.id}`)
 	}
 
 	const FavoriteButton = styled(Button)(({ theme }) => ({
@@ -85,7 +91,9 @@ function CardItem(props: Character) {
 				</Typography>
 			</CardContent>
 			<CardActions sx={{ marginTop: 'auto' }}>
-				<Button size='small'>{t('details')}</Button>
+				<Button onClick={clickDetails} size='small'>
+					{t('details')}
+				</Button>
 			</CardActions>
 		</Card>
 	)
