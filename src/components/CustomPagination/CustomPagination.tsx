@@ -1,5 +1,5 @@
 import { Pagination, Stack, styled } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTheme } from '../../context/ThemeContext'
 
 interface customPaginationProps {
@@ -24,6 +24,14 @@ const CustomPagination: React.FC<customPaginationProps> = (props: customPaginati
 			},
 		},
 	}))
+
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: 'smooth',
+		})
+	}, [props.currentPage])
 
 	return (
 		<Stack spacing={2} justifyContent={'center'} alignItems={'center'} margin={'2rem'}>
