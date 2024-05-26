@@ -5,14 +5,9 @@ import * as yup from 'yup'
 import { useLanguage } from '../../../i18n/LanguageContext'
 import { registerUser } from '../../../store/actions/authActions'
 import { AppDispatch } from '../../../store/store'
+import { RegisterFormData } from '../../../types/formTypes'
 import ButtonMUI from '../../ui/Button/ButtonMUI'
 import InputMUI from '../../ui/Input/InputMUI'
-
-interface FormData {
-	username: string
-	email: string
-	password: string
-}
 
 const schema = yup.object().shape({
 	username: yup.string().required('Username is required'),
@@ -25,7 +20,7 @@ function RegForm() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FormData>({
+	} = useForm<RegisterFormData>({
 		resolver: yupResolver(schema),
 	})
 
@@ -33,7 +28,7 @@ function RegForm() {
 
 	const dispatch = useDispatch<AppDispatch>()
 
-	const submit: SubmitHandler<FormData> = data => {
+	const submit: SubmitHandler<RegisterFormData> = data => {
 		dispatch(registerUser(data.username, data.email, data.password, t))
 		console.log('Отправленные данные:', data)
 	}
