@@ -19,7 +19,7 @@ const useHeaderState = () => {
 
 	const handleClick = (page: string) => {
 		handleCloseNavMenu()
-		if (page == 'login' || page == 'Log in') page = 'Войти'
+		if (page == 'login' || page == 'Log in' || page == 'Login') page = 'Войти'
 		setOpen(prevState => {
 			return { ...prevState, isOpen: !open.isOpen, content: page }
 		})
