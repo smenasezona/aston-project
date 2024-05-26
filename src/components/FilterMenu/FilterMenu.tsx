@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import React, { ChangeEvent, memo, useCallback, useState } from 'react'
 import { useLanguage } from '../../i18n/LanguageContext'
+import { FilterContainer } from '../../styles/filterStyles'
 import { FilterMenuProps, Filters } from '../../types/filtersTypes'
-import { FilterContainer } from './filterStyles'
 
 const FilterMenu: React.FC<FilterMenuProps> = ({ onFilterChange }) => {
 	const [filters, setFilters] = useState<Filters>({
