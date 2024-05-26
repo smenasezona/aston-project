@@ -16,10 +16,14 @@ import { useParams } from 'react-router-dom'
 import { fetchCharactersById } from '../../api/api'
 import { Character } from '../../types/queryTypes'
 import ToRootButton from '../ui/ToRootButton/ToRootButton'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 function CharacterDetails() {
 	const { id } = useParams()
 	const [character, setCharacter] = useState<Character | null>(null)
+	const {t} = useLanguage()
+
+
 
 	useEffect(() => {
 		if (typeof id !== 'undefined') {
@@ -69,7 +73,7 @@ function CharacterDetails() {
 								<AbcIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary='Name' secondary={character.name} />
+						<ListItemText primary={t('name')} secondary={character.name} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -77,7 +81,7 @@ function CharacterDetails() {
 								<ExposureIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary='Status' secondary={character.status} />
+						<ListItemText primary={t('status')} secondary={character.status} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -85,7 +89,7 @@ function CharacterDetails() {
 								<AdbIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary='Species' secondary={character.species} />
+						<ListItemText primary={t('species')} secondary={character.species} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -93,7 +97,7 @@ function CharacterDetails() {
 								<WcIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary='Gender' secondary={character.gender} />
+						<ListItemText primary={t('gender')} secondary={character.gender} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -101,7 +105,7 @@ function CharacterDetails() {
 								<LocationOnIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary='Location' secondary={character.location.name} />
+						<ListItemText primary={t('location')} secondary={character.location.name} />
 					</ListItem>
 				</List>
 				<CardMedia
