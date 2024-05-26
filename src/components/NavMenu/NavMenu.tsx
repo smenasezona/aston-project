@@ -2,13 +2,20 @@
 import MenuIcon from '@mui/icons-material/Menu'
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import React, { memo } from 'react'
+import { Link } from 'react-router-dom'
+import { Translation, Translations } from '../../i18n/translation'
 
 interface NavMenuProps {
 	pages: string[]
 	anchorElNav: null | HTMLElement
 	handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void
 	handleCloseNavMenu: () => void
-	handleClick: (page: string) => void
+	handleClick: (page: string) => void,
+	isAuth: boolean,
+	handleExit: () => void,
+	favorite: keyof Translation,
+	history: keyof Translation ,
+	exit: keyof Translation,
 }
 
 const NavMenu: React.FC<NavMenuProps> = ({
@@ -17,6 +24,11 @@ const NavMenu: React.FC<NavMenuProps> = ({
 	handleOpenNavMenu,
 	handleCloseNavMenu,
 	handleClick,
+	isAuth,
+	handleExit,
+	favorite,
+	history,
+	exit
 }) => (
 	<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 		<IconButton
@@ -46,12 +58,30 @@ const NavMenu: React.FC<NavMenuProps> = ({
 			sx={{
 				display: { xs: 'block', md: 'none' },
 			}}
-		>
-			{pages.map(page => (
-				<MenuItem key={page} onClick={() => handleClick(page)}>
-					<Typography textAlign='center'>{page}</Typography>
-				</MenuItem>
-			))}
+		>	
+			{isAuth ?
+				(	
+					<>
+						<MenuItem >
+								<Link to={'/favorite'} ><Typography textAlign='center'>{favorite}</Typography></Link> 
+						</MenuItem>
+						<MenuItem >
+							<Link to={'/history'} ><Typography textAlign='center'>{history}</Typography></Link>
+						</MenuItem>
+						<MenuItem onClick={handleExit}>
+							<Typography textAlign='center' color='error'fontWeight='700'>{exit}</Typography>
+						</MenuItem>
+					</>
+				)
+				:
+				(
+					pages.map(page => (
+						<MenuItem key={page} onClick={() => handleClick(page)}>
+							<Typography textAlign='center'>{page}</Typography>
+						</MenuItem>
+					))
+				)
+			}
 		</Menu>
 	</Box>
 )

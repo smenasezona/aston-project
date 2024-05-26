@@ -102,6 +102,11 @@ function Header() {
 						handleOpenNavMenu={handleOpenNavMenu}
 						handleCloseNavMenu={handleCloseNavMenu}
 						handleClick={handleClick}
+						isAuth={isAuth}
+						handleExit={handleExit}
+						favorite={t('favorite')}
+						history={t('history')}
+						exit={t('exit')}
 					/>
 
 					<Link to={'/'}>

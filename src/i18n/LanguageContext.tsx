@@ -6,7 +6,7 @@ type Language = keyof Translations
 interface LanguageContextType {
 	language: Language
 	switchLanguage: (lang: Language) => void
-	t: (key: keyof Translation) => string | number
+	t: (key: keyof Translation) => string 
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -25,7 +25,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 	}
 
 	const t = (key: keyof Translation) => {
-		return translations[language][key] || key
+		return translations[language][key] || key.toString()
 	}
 
 	return <LanguageContext.Provider value={{ language, switchLanguage, t }}>{children}</LanguageContext.Provider>
