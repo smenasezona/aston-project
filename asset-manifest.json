@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/smenasezona/aston-project.git/static/css/main.79c19196.css",
+    "main.js": "/smenasezona/aston-project.git/static/js/main.9d22296d.js",
+    "static/media/img.png": "/smenasezona/aston-project.git/static/media/img.5d1a471d08890d55d88f.png",
+    "index.html": "/smenasezona/aston-project.git/index.html",
+    "main.79c19196.css.map": "/smenasezona/aston-project.git/static/css/main.79c19196.css.map",
+    "main.9d22296d.js.map": "/smenasezona/aston-project.git/static/js/main.9d22296d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79c19196.css",
+    "static/js/main.9d22296d.js"
+  ]
+}
