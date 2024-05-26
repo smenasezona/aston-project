@@ -40,6 +40,8 @@ const translations: Translations = {
 		historyEmptyText: 'История отсутствует',
 		historyItemParametersHeader: 'Параметры запроса',
 		historyItemTime: 'дата',
+		location: 'Местоположение',
+		name: 'Имя'
 	},
 	eng: {
 		favorite: 'Favorites',
@@ -73,7 +75,10 @@ const translations: Translations = {
 		historyEmptyText: 'History is empty',
 		historyItemParametersHeader: 'Query parameters',
 		historyItemTime: 'at',
+		location: 'Location',
+		name: 'Name',
 	},
 }
 
+// @ts-ignore
 export default translations
