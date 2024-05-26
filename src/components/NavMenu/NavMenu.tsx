@@ -3,7 +3,8 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
-import { Translation, Translations } from '../../i18n/translation'
+import { Translation } from '../../i18n/translation'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 interface NavMenuProps {
 	pages: string[]
@@ -29,7 +30,9 @@ const NavMenu: React.FC<NavMenuProps> = ({
 	favorite,
 	history,
 	exit
-}) => (
+}) => {
+	const { t } = useLanguage()
+	return (
 	<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 		<IconButton
 			size='large'
@@ -61,17 +64,23 @@ const NavMenu: React.FC<NavMenuProps> = ({
 		>	
 			{isAuth ?
 				(	
-					<>
-						<MenuItem >
-								<Link to={'/favorite'} ><Typography textAlign='center'>{favorite}</Typography></Link> 
+
+					[favorite,history,exit].map((label)=>{
+						if (label === exit) {
+							return (
+								<MenuItem key={label} onClick={handleExit}>
+							<Typography textAlign='center' color='error'fontWeight='700'>{t(exit)}</Typography>
 						</MenuItem>
-						<MenuItem >
-							<Link to={'/history'} ><Typography textAlign='center'>{history}</Typography></Link>
+							)
+						}
+						else {
+							return (
+								<MenuItem key={label}>
+								<Link to={`/${label}`} ><Typography textAlign='center'>{t(label)}</Typography></Link> 
 						</MenuItem>
-						<MenuItem onClick={handleExit}>
-							<Typography textAlign='center' color='error'fontWeight='700'>{exit}</Typography>
-						</MenuItem>
-					</>
+							)
+						}
+					})
 				)
 				:
 				(
@@ -85,5 +94,6 @@ const NavMenu: React.FC<NavMenuProps> = ({
 		</Menu>
 	</Box>
 )
+}
 
 export default memo(NavMenu)

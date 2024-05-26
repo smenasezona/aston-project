@@ -104,9 +104,9 @@ function Header() {
 						handleClick={handleClick}
 						isAuth={isAuth}
 						handleExit={handleExit}
-						favorite={t('favorite')}
-						history={t('history')}
-						exit={t('exit')}
+						favorite={'favorite'}
+						history={'history'}
+						exit={'exit'}
 					/>
 
 					<Link to={'/'}>
