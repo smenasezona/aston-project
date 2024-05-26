@@ -17,12 +17,14 @@ import { fetchCharactersById } from '../../api/api'
 import { Character } from '../../types/queryTypes'
 import ToRootButton from '../ui/ToRootButton/ToRootButton'
 import { useLanguage } from '../../i18n/LanguageContext'
+import { useTheme } from '../../context/ThemeContext'
+import styles from './CharacterDetails.module.scss'
 
 function CharacterDetails() {
 	const { id } = useParams()
 	const [character, setCharacter] = useState<Character | null>(null)
-	const {t} = useLanguage()
-
+	const { t } = useLanguage()
+	const { theme } = useTheme()
 
 
 	useEffect(() => {
@@ -60,11 +62,14 @@ function CharacterDetails() {
 					sx={{
 						width: '100%',
 						maxWidth: 360,
-						bgcolor: 'background.paper',
+						bgcolor: theme === 'dark' ? '#4d4f54' : '#fefefe',
+						color: theme === 'dark' ? '#fefefe' : '#101010',
 						position: 'absolute',
 						top: '50%',
 						left: '50%',
 						transform: 'translate(-50%, -50%)',
+						borderRadius: '0.3rem',
+						boxShadow: '3px 10px 13px -7px rgba(0,0,0,0.65)',
 					}}
 				>
 					<ListItem>
@@ -73,7 +78,8 @@ function CharacterDetails() {
 								<AbcIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary={t('name')} secondary={character.name} />
+						<ListItemText classes={{ secondary: theme === 'dark' ? styles.secondary : '' }} primary={t('name')}
+													secondary={character.name} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -81,7 +87,8 @@ function CharacterDetails() {
 								<ExposureIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary={t('status')} secondary={character.status} />
+						<ListItemText classes={{ secondary: theme === 'dark' ? styles.secondary : '' }} primary={t('status')}
+													secondary={character.status} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -89,7 +96,8 @@ function CharacterDetails() {
 								<AdbIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary={t('species')} secondary={character.species} />
+						<ListItemText classes={{ secondary: theme === 'dark' ? styles.secondary : '' }} primary={t('species')}
+													secondary={character.species} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -97,7 +105,8 @@ function CharacterDetails() {
 								<WcIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary={t('gender')} secondary={character.gender} />
+						<ListItemText classes={{ secondary: theme === 'dark' ? styles.secondary : '' }} primary={t('gender')}
+													secondary={character.gender} />
 					</ListItem>
 					<ListItem>
 						<ListItemAvatar>
@@ -105,7 +114,8 @@ function CharacterDetails() {
 								<LocationOnIcon />
 							</Avatar>
 						</ListItemAvatar>
-						<ListItemText primary={t('location')} secondary={character.location.name} />
+						<ListItemText classes={{ secondary: theme === 'dark' ? styles.secondary : '' }} primary={t('location')}
+													secondary={character.location.name} />
 					</ListItem>
 				</List>
 				<CardMedia
