@@ -4,9 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import CustomPagination from '../../components/CustomPagination/CustomPagination'
 import GridContainer from '../../components/GridContainer/GridContainer'
 import { RootState } from '../../store/store'
+import { Character } from '../../types/queryTypes'
+
 
 function Favorite() {
-	const [filteredArr, setFilteredArr] = useState<any[]>([])
+	const [filteredArr, setFilteredArr] = useState<Character[]>([])
 	const postList = useSelector((state: RootState) => state.favorite.postList)
 	const idList = useSelector((state: RootState) => state.favorite.idList)
 	const location = useLocation()
@@ -23,7 +25,9 @@ function Favorite() {
 	useEffect(() => {
 		setLoading(true)
 		setMaxPage(Math.ceil(idList.length / 20))
-		const filtered = idList.map(id => postList.find((item: any) => item.id === id)).filter(Boolean)
+		const filtered = idList
+    .map(id => postList.find((item: Character) => item.id === id))
+    .filter((item): item is Character => Boolean(item));
 		setFilteredArr(filtered)
 		setLoading(false)
 	}, [idList, postList])

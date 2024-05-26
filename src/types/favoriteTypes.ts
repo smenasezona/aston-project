@@ -1,8 +1,9 @@
 import { ADD_TO_LIST, DELETE_FROM_LIST, FILLING_ID_LIST, UPDATE_POST_LIST } from '../store/actions/actionsTypes'
+import { Character } from './queryTypes'
 
 export type FavoriteState = {
-	idList: Array<number>
-	postList: Array<{}>
+	idList: number[]
+	postList: Character[]
 }
 
 export type SetAddTypes = {
@@ -17,7 +18,7 @@ export type SetDeleteTypes = {
 
 export type UpdatePostList = {
 	type: typeof UPDATE_POST_LIST
-	payload: Array<{}>
+	payload: Character[] | Character
 }
 
 export type FillingIdList = {
