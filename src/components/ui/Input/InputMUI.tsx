@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Input as BaseInput, InputProps } from '@mui/base/Input';
 import { styled } from '@mui/system';
 
+
 const Input = React.forwardRef(function CustomInput(
   props: InputProps,
   ref: React.ForwardedRef<HTMLDivElement>,
@@ -9,7 +10,7 @@ const Input = React.forwardRef(function CustomInput(
   return <BaseInput slots={{ input: InputElement }} {...props} ref={ref} />;
 });
 
-const InputMUI = React.forwardRef((props: any, ref) => {
+const InputMUI = React.forwardRef((props: InputProps, ref:React.ForwardedRef<HTMLDivElement>) => {
   return <Input {...props} ref={ref} />;
 });
 
