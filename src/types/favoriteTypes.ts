@@ -22,7 +22,7 @@ export type UpdatePostList = {
 }
 
 export type FillingIdList = {
-	payload: any
+	payload: string
 	type: typeof FILLING_ID_LIST
 }
 

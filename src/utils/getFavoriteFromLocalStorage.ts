@@ -1,4 +1,8 @@
-export function getFavoriteFromLocalStorage(): Record<string, any> {
+type FavoriteData = {
+    [key: string]: number[];
+}
+
+export function getFavoriteFromLocalStorage(): FavoriteData {
 	const favorite = localStorage.getItem('favorite')
 	if (favorite) {
 	  try {

@@ -2,13 +2,19 @@ import { Button as BaseButton, buttonClasses } from '@mui/base/Button'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/system'
 import styles from './ButtonMUI.module.scss'
+import { ReactNode } from 'react'
+
+interface ButtonProps{
+  children: string | ReactNode,
+  type?: 'submit' | 'button' | 'reset',
+}
 
 
-function ButtonMUI(props:any) {
+function ButtonMUI(props:ButtonProps) {
 	return (
 		<div className={styles.button}>
 			<Stack spacing={2} direction='row'>
-				<Button {...props}>{props.children}</Button>
+				<Button {...props}> {props.children}</Button>
 			</Stack>
 		</div>
 	)
