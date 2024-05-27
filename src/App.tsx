@@ -8,7 +8,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import Favorite from './screens/favorite/Favorite'
 import History from './screens/history/History'
 import Home from './screens/home/Home'
-import { AppDispatch } from './store/store'
+import { AppDispatch, RootState } from './store/store'
 
 import { fetchCharactersById } from './api/api'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
@@ -21,8 +21,8 @@ import withAuth from './utils/hoc/withAuth'
 
 const AppContent: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>()
-	const idList = useSelector((state: any) => state.favorite.idList)
-	const user = useSelector((state: any) => state.auth.user)
+	const idList = useSelector((state: RootState) => state.favorite.idList)
+	const user = useSelector((state: RootState) => state.auth.user)
 
 	const { theme } = useTheme()
 

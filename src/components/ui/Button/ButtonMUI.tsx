@@ -3,7 +3,8 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/system'
 import styles from './ButtonMUI.module.scss'
 
-function ButtonMUI(props: any) {
+
+function ButtonMUI(props:any) {
 	return (
 		<div className={styles.button}>
 			<Stack spacing={2} direction='row'>
